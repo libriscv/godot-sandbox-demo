@@ -1,14 +1,14 @@
 #include "api.hpp"
 
-struct State {
+struct SlimeState {
 	int direction = 1;
 };
-PER_OBJECT(State);
+PER_OBJECT(SlimeState);
 
 extern "C" Variant _process(Variant delta) {
 	Node2D slime(".");
 	Node2D sprite("AnimatedSprite2D");
-	auto& state = GetState(slime);
+	auto& state = GetSlimeState(slime);
 
 	Vector2 spd = Vector2(50.0f, 0.0f) * float(delta) * state.direction;
 	slime.set_position(slime.get_position() + spd);

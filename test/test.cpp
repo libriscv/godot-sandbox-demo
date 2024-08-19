@@ -4,6 +4,10 @@ extern "C" Variant empty_function() {
 	return Variant();
 }
 
+extern "C" Variant calling_function(Variant callable) {
+	return callable.call();
+}
+
 extern "C" Variant my_function(Variant varg) {
 	print("Hello, ", 124.5, " world!\n");
 	print("Arg: ", varg);
