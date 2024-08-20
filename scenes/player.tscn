@@ -176,6 +176,8 @@ animations = [{
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_l4exu")
+player_speed = 150.0
+player_jump_vel = -300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -7)

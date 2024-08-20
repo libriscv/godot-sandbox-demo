@@ -27,7 +27,7 @@ func _ready() -> void:
 	var t1 = Time.get_ticks_usec()
 	var sandbox_overhead = (t1 - t0) * 1000.0 / 200.0;
 	print("Sandbox vmcall time: ", sandbox_overhead, " nanos")
-	
+
 	gds_t0 = Time.get_ticks_usec()
 	for n in 200:
 		calling_function(plain_function);

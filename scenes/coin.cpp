@@ -23,6 +23,9 @@ extern "C" Variant _on_body_entered(Variant arg) {
 }
 
 extern "C" Variant _input(Variant event) {
+	if (is_editor())
+		return {};
+
 	if (event("is_action_pressed", "jump")) {
 		Node2D(".").set("modulate", 0xFF6060FF);
 	} else if (event("is_action_released", "jump")) {

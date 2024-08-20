@@ -188,45 +188,6 @@ texture = ExtResource("8_uv7qc")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_t1ylm")
 
-[sub_resource type="Animation" id="Animation_ak1ke"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(417, 133)]
-}
-
-[sub_resource type="Animation" id="Animation_6a08h"]
-resource_name = "new_animation"
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(417, 133), Vector2(496, 133)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_glend"]
-_data = {
-"RESET": SubResource("Animation_ak1ke"),
-"new_animation": SubResource("Animation_6a08h")
-}
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2g1d0"]
-
 [sub_resource type="LabelSettings" id="LabelSettings_uej4g"]
 font_size = 10
 outline_size = 2
@@ -293,13 +254,52 @@ _data = {
 "new_animation": SubResource("Animation_243nh")
 }
 
+[sub_resource type="Animation" id="Animation_ak1ke"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(417, 133)]
+}
+
+[sub_resource type="Animation" id="Animation_6a08h"]
+resource_name = "new_animation"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(417, 133), Vector2(496, 133)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_glend"]
+_data = {
+"RESET": SubResource("Animation_ak1ke"),
+"new_animation": SubResource("Animation_6a08h")
+}
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2g1d0"]
+
 [node name="Node" type="Node"]
 
 [node name="C++ program" type="Sandbox" parent="." node_paths=PackedStringArray("program_elf")]
 script = ExtResource("1_n3m73")
-program_elf = NodePath("Sandbox_TEST_ELF")
+program_elf = NodePath("Sandbox_TestTest")
 
-[node name="Sandbox_TEST_ELF" type="Sandbox" parent="C++ program"]
+[node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
 script = ExtResource("2_p7q4e")
 
 [node name="Rust program" type="Node" parent="." node_paths=PackedStringArray("rust")]
@@ -360,6 +360,20 @@ position = Vector2(14, 3)
 zoom = Vector2(4, 4)
 limit_bottom = 290
 position_smoothing_enabled = true
+
+[node name="Label" type="Label" parent="Player/Camera2D"]
+offset_left = -44.0
+offset_top = -39.0
+offset_right = 14.0
+offset_bottom = -25.0
+text = "Slide Knight"
+label_settings = SubResource("LabelSettings_uej4g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D/Label"]
+libraries = {
+"": SubResource("AnimationLibrary_h4l0x")
+}
+autoplay = "new_animation"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -425,26 +439,12 @@ shape = SubResource("WorldBoundaryShape2D_2g1d0")
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Slime" parent="Enemies" instance=ExtResource("12_01vj1")]
-position = Vector2(-21, 208)
+position = Vector2(-432, 192)
 
 [node name="Slime2" parent="Enemies" instance=ExtResource("12_01vj1")]
-position = Vector2(-395, 192)
+position = Vector2(-48, 208)
 
 [node name="Texts" type="Node" parent="."]
-
-[node name="Label" type="Label" parent="Texts"]
-offset_left = 63.0
-offset_top = 151.0
-offset_right = 121.0
-offset_bottom = 165.0
-text = "Slide Knight"
-label_settings = SubResource("LabelSettings_uej4g")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Texts/Label"]
-libraries = {
-"": SubResource("AnimationLibrary_h4l0x")
-}
-autoplay = "new_animation"
 
 [node name="CoinLabel" type="Label" parent="Texts"]
 z_index = -1

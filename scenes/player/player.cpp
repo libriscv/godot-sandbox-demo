@@ -1,10 +1,28 @@
 #include "api.hpp"
 #include <cmath>
 
-static const float SPEED = 150.0f;
-static const float JUMP_VELOCITY = -300.0f;
+static float jump_velocity = -300.0f;
+static float player_speed = 150.0f;
+
+extern "C" const Property prop0 {
+	.name = "player_speed",
+	.type = Variant::FLOAT,
+	.getter = []() -> Variant { return player_speed; },
+	.setter = [](Variant value) -> Variant { return player_speed = value; },
+	.default_value = Variant{player_speed},
+};
+extern "C" const Property prop1 {
+	.name = "player_jump_vel",
+	.type = Variant::FLOAT,
+	.getter = []() -> Variant { return jump_velocity; },
+	.setter = [](Variant value) -> Variant { return jump_velocity = value; },
+	.default_value = Variant{jump_velocity},
+};
 
 extern "C" Variant _physics_process(Variant delta) {
+	if (is_editor())
+		return {};
+
 	Node2D player(".");
 	Object input("Input");
 	Vector2 velocity = player.get("velocity").v2();
@@ -16,7 +34,7 @@ extern "C" Variant _physics_process(Variant delta) {
 
 	// Handle jump.
 	if (input("is_action_just_pressed", "jump") && player("is_on_floor"))
-		velocity.y = JUMP_VELOCITY;
+		velocity.y = jump_velocity;
 
 	// Get the input direction and handle the movement/deceleration.
 	float direction = input("get_axis", "move_left", "move_right");
@@ -35,9 +53,9 @@ extern "C" Variant _physics_process(Variant delta) {
 	}
 
 	if (direction != 0)
-		velocity.x = direction * SPEED;
+		velocity.x = direction * player_speed;
 	else
-		velocity.x = std::fmin(velocity.x, SPEED);
+		velocity.x = std::fmin(velocity.x, player_speed);
 	player.set("velocity", velocity);
 
 	return player("move_and_slide");

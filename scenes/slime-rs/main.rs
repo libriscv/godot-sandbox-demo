@@ -5,7 +5,7 @@ use godot::variant::*;
 const SPEED: f32 = 50.0;
 
 #[no_mangle]
-pub fn _process(delta: Variant) -> Variant {
+pub fn _physics_process(delta: Variant) -> Variant {
 	let slime = Node::new_from_path(".");
 	let sprite = Node::new_from_path("AnimatedSprite2D");
 

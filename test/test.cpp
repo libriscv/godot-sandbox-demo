@@ -1,5 +1,6 @@
 #include "api.hpp"
 
+
 extern "C" Variant empty_function() {
 	return Variant();
 }
