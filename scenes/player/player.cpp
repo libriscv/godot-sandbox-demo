@@ -4,20 +4,25 @@
 static float jump_velocity = -300.0f;
 static float player_speed = 150.0f;
 
-extern "C" const Property prop0 {
+SANDBOXED_PROPERTIES(3, {
 	.name = "player_speed",
 	.type = Variant::FLOAT,
 	.getter = []() -> Variant { return player_speed; },
 	.setter = [](Variant value) -> Variant { return player_speed = value; },
 	.default_value = Variant{player_speed},
-};
-extern "C" const Property prop1 {
+}, {
 	.name = "player_jump_vel",
 	.type = Variant::FLOAT,
 	.getter = []() -> Variant { return jump_velocity; },
 	.setter = [](Variant value) -> Variant { return jump_velocity = value; },
 	.default_value = Variant{jump_velocity},
-};
+}, {
+	.name = "player_name",
+	.type = Variant::STRING,
+	.getter = []() -> Variant { return "Slide Knight"; },
+	.setter = [](Variant value) -> Variant { return {}; },
+	.default_value = Variant{"Slight Knight"},
+});
 
 extern "C" Variant _physics_process(Variant delta) {
 	if (is_editor())

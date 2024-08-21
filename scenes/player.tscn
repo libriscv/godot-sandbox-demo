@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://test/test.elf" id="3_pve2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_88l7n"]
-size = Vector2(9, 13)
+size = Vector2(11, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dc1c1"]
 atlas = ExtResource("1_1y0ug")
@@ -176,11 +176,12 @@ animations = [{
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_l4exu")
-player_speed = 150.0
+player_speed = 50.0
 player_jump_vel = -300.0
+player_name = "Slide Knight"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -7)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_88l7n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

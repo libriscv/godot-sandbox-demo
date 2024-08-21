@@ -2,13 +2,13 @@
 
 static float slime_speed = 50.0f;
 
-extern "C" const Property prop0 {
+SANDBOXED_PROPERTIES(1, {
 	.name = "slime_speed",
 	.type = Variant::FLOAT,
 	.getter = []() -> Variant { return slime_speed; },
 	.setter = [](Variant value) -> Variant { return slime_speed = value; },
 	.default_value = Variant{slime_speed},
-};
+});
 
 struct SlimeState {
 	int direction = 1;

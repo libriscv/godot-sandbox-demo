@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://b84pppfu6tvr1"]
+[gd_scene load_steps=28 format=4 uid="uid://b84pppfu6tvr1"]
 
 [ext_resource type="Script" path="res://test/test.gd" id="1_n3m73"]
 [ext_resource type="Script" path="res://test/test.elf" id="2_p7q4e"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://88cmbmcw8e1j" path="res://scenes/player.tscn" id="6_8caog"]
 [ext_resource type="Texture2D" uid="uid://cee0asjwgfgcb" path="res://assets/tiles/bg_santorini_layers/bg_santorini_2.png" id="6_rclri"]
 [ext_resource type="Texture2D" uid="uid://bg1iclr2emsw7" path="res://assets/sprites/world_tileset.png" id="8_uv7qc"]
+[ext_resource type="Script" path="res://scenes/label.gd" id="9_le0dg"]
 [ext_resource type="PackedScene" uid="uid://b3ve27fwfptk0" path="res://scenes/kill_zone.tscn" id="10_ncy1u"]
 [ext_resource type="PackedScene" uid="uid://eqb1p24hpo2f" path="res://scenes/platform.tscn" id="11_qhrto"]
 [ext_resource type="PackedScene" uid="uid://bw8koyu6x3go7" path="res://scenes/slime.tscn" id="12_01vj1"]
@@ -354,6 +355,7 @@ tile_set = SubResource("TileSet_aeu1j")
 unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
+player_speed = 150.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -361,13 +363,15 @@ zoom = Vector2(4, 4)
 limit_bottom = 290
 position_smoothing_enabled = true
 
-[node name="Label" type="Label" parent="Player/Camera2D"]
+[node name="Label" type="Label" parent="Player/Camera2D" node_paths=PackedStringArray("player_elf")]
 offset_left = -44.0
 offset_top = -39.0
 offset_right = 14.0
 offset_bottom = -25.0
-text = "Slide Knight"
+text = "player"
 label_settings = SubResource("LabelSettings_uej4g")
+script = ExtResource("9_le0dg")
+player_elf = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D/Label"]
 libraries = {
