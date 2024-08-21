@@ -17,6 +17,6 @@ extern "C" Variant _on_timer_timeout() {
 	Object engine("Engine");
 	engine.set("time_scale", 1.0f);
 
-	get_tree()("reload_current_scene");
+	get_tree().call_deferred("reload_current_scene");
 	return {};
 }
