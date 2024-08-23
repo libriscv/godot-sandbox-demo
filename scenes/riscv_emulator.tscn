@@ -297,11 +297,13 @@ _data = {
 [node name="Node" type="Node"]
 
 [node name="C++ program" type="Sandbox" parent="." node_paths=PackedStringArray("program_elf")]
+monitor_global_calls_made = 72694
 script = ExtResource("1_n3m73")
 program_elf = NodePath("Sandbox_TestTest")
 
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
 monitor_heap_usage = 74728
+monitor_global_calls_made = 72694
 script = ExtResource("2_p7q4e")
 
 [node name="Rust program" type="Node" parent="." node_paths=PackedStringArray("rust")]
@@ -310,6 +312,7 @@ rust = NodePath("Sandbox_RustRustProgram")
 
 [node name="Sandbox_RustRustProgram" type="Sandbox" parent="Rust program"]
 monitor_heap_usage = 120
+monitor_global_calls_made = 72694
 script = ExtResource("4_331sp")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
@@ -357,7 +360,6 @@ tile_set = SubResource("TileSet_aeu1j")
 unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
-player_speed = 150.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -494,14 +496,12 @@ offset_right = 53.0
 offset_bottom = 122.0
 text = "C++ written inside the Godot editor"
 
-[node name="CallLabel" type="Label" parent="Texts" node_paths=PackedStringArray("player_elf", "slime_elf", "coin_elf")]
+[node name="CallLabel" type="Label" parent="Texts" node_paths=PackedStringArray("player_elf")]
 offset_left = 344.0
 offset_top = 78.0
 offset_right = 384.0
 offset_bottom = 101.0
 script = ExtResource("9_le0dg")
 player_elf = NodePath("../../Player")
-slime_elf = NodePath("../../Enemies/Slime")
-coin_elf = NodePath("../../Coins/Coin")
 
 [connection signal="ready" from="." to="Coins/Coin" method="reset_game"]

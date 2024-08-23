@@ -25,8 +25,10 @@ SANDBOXED_PROPERTIES(3, {
 });
 
 extern "C" Variant _physics_process(Variant delta) {
-	if (is_editor())
+	if (is_editor()) {
+		Node("AnimatedSprite2D")("play", "idle");
 		return {};
+	}
 
 	Node2D player(".");
 	Object input("Input");
