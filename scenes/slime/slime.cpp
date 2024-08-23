@@ -16,8 +16,10 @@ struct SlimeState {
 PER_OBJECT(SlimeState);
 
 extern "C" Variant _physics_process(Variant delta) {
-	if (is_editor())
+	if (is_editor()) {
+		Node("AnimatedSprite2D")("play", "idle");
 		return {};
+	}
 
 	Node2D slime(".");
 	Node2D sprite("AnimatedSprite2D");

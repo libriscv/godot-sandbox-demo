@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://b84pppfu6tvr1"]
+[gd_scene load_steps=29 format=4 uid="uid://b84pppfu6tvr1"]
 
 [ext_resource type="Script" path="res://test/test.gd" id="1_n3m73"]
 [ext_resource type="Script" path="res://test/test.elf" id="2_p7q4e"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dwyfr30v0d431" path="res://assets/Screenshot from 2024-08-16 09-06-33.png" id="14_pqt4s"]
 [ext_resource type="Texture2D" uid="uid://dpaltiur0p1mm" path="res://assets/Screenshot from 2024-08-15 16-01-33.png" id="15_u1crt"]
 [ext_resource type="Texture2D" uid="uid://bed6eys5bffjy" path="res://assets/Screenshot from 2024-08-16 09-07-43.png" id="16_witcx"]
+[ext_resource type="Texture2D" uid="uid://bqc16h6168e53" path="res://assets/Screenshot from 2024-08-23 06-59-55.png" id="18_h18om"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t1ylm"]
 texture = ExtResource("8_uv7qc")
@@ -297,13 +298,13 @@ _data = {
 [node name="Node" type="Node"]
 
 [node name="C++ program" type="Sandbox" parent="." node_paths=PackedStringArray("program_elf")]
-monitor_global_calls_made = 72694
+monitor_global_calls_made = 181158
 script = ExtResource("1_n3m73")
 program_elf = NodePath("Sandbox_TestTest")
 
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
 monitor_heap_usage = 74728
-monitor_global_calls_made = 72694
+monitor_global_calls_made = 181158
 script = ExtResource("2_p7q4e")
 
 [node name="Rust program" type="Node" parent="." node_paths=PackedStringArray("rust")]
@@ -312,7 +313,7 @@ rust = NodePath("Sandbox_RustRustProgram")
 
 [node name="Sandbox_RustRustProgram" type="Sandbox" parent="Rust program"]
 monitor_heap_usage = 120
-monitor_global_calls_made = 72694
+monitor_global_calls_made = 181158
 script = ExtResource("4_331sp")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
@@ -374,6 +375,7 @@ offset_right = 14.0
 offset_bottom = -25.0
 text = "player"
 label_settings = SubResource("LabelSettings_uej4g")
+horizontal_alignment = 1
 script = ExtResource("9_le0dg")
 player_elf = NodePath("../..")
 
@@ -488,6 +490,11 @@ z_index = -1
 position = Vector2(-146, 35)
 scale = Vector2(0.1199, 0.1375)
 texture = ExtResource("16_witcx")
+
+[node name="ScreenshotFrom2024-08-2306-59-55" type="Sprite2D" parent="Texts"]
+position = Vector2(424, 59)
+scale = Vector2(0.139937, 0.131737)
+texture = ExtResource("18_h18om")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Texts"]
 offset_left = -91.0
