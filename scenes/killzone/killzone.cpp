@@ -7,6 +7,7 @@ extern "C" Variant _on_body_entered(Variant bodyVar) {
 	Node2D body = bodyVar.as_node2d();
 	body.set("velocity", Vector2(0.0f, -120.0f));
 	body.get_node("CollisionShape2D").queue_free();
+	body.get_node("AnimatedSprite2D")("play", "died");
 
 	auto timer = Node("Timer");
 	timer("start");

@@ -26,7 +26,8 @@ SANDBOXED_PROPERTIES(3, {
 
 extern "C" Variant _physics_process(Variant delta) {
 	if (is_editor()) {
-		Node("AnimatedSprite2D")("play", "idle");
+		if (is_part_of_tree(Node(".")))
+			Node("AnimatedSprite2D")("play", "idle");
 		return {};
 	}
 
@@ -49,15 +50,22 @@ extern "C" Variant _physics_process(Variant delta) {
 	Node animated_sprite("AnimatedSprite2D");
 	if (direction != 0)
 		animated_sprite.set("flip_h", (direction < 0));
-	if (player("is_on_floor")) {
-		if (direction == 0) {
-			animated_sprite("play", "idle");
+
+	if (std::string(animated_sprite.get("animation")) != "died") {
+		if (player("is_on_floor")) {
+			if (direction == 0) {
+				animated_sprite("play", "idle");
+			} else {
+				animated_sprite("play", "run");
+			}
 		} else {
-			animated_sprite("play", "run");
+			animated_sprite("play", "jump");
 		}
-	} else {
-		animated_sprite("play", "jump");
 	}
+
+	Node2D arrow("Arrow");
+	auto angle = int64_t(Object("Time")("get_ticks_msec")) * 0.0025f;
+	arrow.set_position(Vector2::from_angle(angle) * 50.0f);
 
 	if (direction != 0)
 		velocity.x = direction * player_speed;

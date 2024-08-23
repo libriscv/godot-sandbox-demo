@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://b84pppfu6tvr1"]
+[gd_scene load_steps=31 format=4 uid="uid://b84pppfu6tvr1"]
 
 [ext_resource type="Script" path="res://test/test.gd" id="1_n3m73"]
 [ext_resource type="Script" path="res://test/test.elf" id="2_p7q4e"]
@@ -256,6 +256,21 @@ _data = {
 "new_animation": SubResource("Animation_243nh")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0sqwl"]
+atlas = ExtResource("8_uv7qc")
+region = Rect2(16, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s53gs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0sqwl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="Animation" id="Animation_ak1ke"]
 length = 0.001
 tracks/0/type = "value"
@@ -298,13 +313,13 @@ _data = {
 [node name="Node" type="Node"]
 
 [node name="C++ program" type="Sandbox" parent="." node_paths=PackedStringArray("program_elf")]
-monitor_global_calls_made = 36812
+monitor_global_calls_made = 55453
 script = ExtResource("1_n3m73")
 program_elf = NodePath("Sandbox_TestTest")
 
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
 monitor_heap_usage = 74728
-monitor_global_calls_made = 36812
+monitor_global_calls_made = 55453
 script = ExtResource("2_p7q4e")
 
 [node name="Rust program" type="Node" parent="." node_paths=PackedStringArray("rust")]
@@ -313,7 +328,7 @@ rust = NodePath("Sandbox_RustRustProgram")
 
 [node name="Sandbox_RustRustProgram" type="Sandbox" parent="Rust program"]
 monitor_heap_usage = 120
-monitor_global_calls_made = 36812
+monitor_global_calls_made = 55453
 script = ExtResource("4_331sp")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
@@ -384,6 +399,10 @@ libraries = {
 "": SubResource("AnimationLibrary_h4l0x")
 }
 autoplay = "new_animation"
+
+[node name="Arrow" type="AnimatedSprite2D" parent="Player"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_s53gs")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
