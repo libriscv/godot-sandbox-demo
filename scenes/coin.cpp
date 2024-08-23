@@ -25,8 +25,8 @@ extern "C" Variant _on_body_entered(Variant arg) {
 extern "C" Variant _process(Variant delta) {
 	if (is_editor()) {
 		Node("AnimatedSprite2D")("play", "idle");
-		return {};
 	}
+	return {};
 }
 
 extern "C" Variant _input(Variant event) {
