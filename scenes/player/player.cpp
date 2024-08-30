@@ -64,12 +64,7 @@ extern "C" Variant _physics_process(Variant delta) {
 	Node2D arrow("Arrow");
 	auto angle = int64_t(Object("Time")("get_ticks_msec")) * 0.0025f;
 	arrow.set_position(Vector2::from_angle(angle) * 50.0f);
-
-	if (direction != 0)
-		velocity.x = direction * player_speed;
-	else
-		velocity.x = std::fmin(velocity.x, player_speed);
+	velocity.x = direction * player_speed;
 	player.set("velocity", velocity);
-
 	return player("move_and_slide");
 }
