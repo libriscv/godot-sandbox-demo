@@ -30,11 +30,9 @@ extern "C" Variant _physics_process(Variant delta) {
 			Node("AnimatedSprite2D")("play", "idle");
 		return {};
 	}
-
 	Node2D player(".");
 	Object input("Input");
 	Vector2 velocity = player.get("velocity").v2();
-
 	// Add the gravity.
 	if (!player("is_on_floor")) {
 		velocity += player("get_gravity").v2() * delta;
