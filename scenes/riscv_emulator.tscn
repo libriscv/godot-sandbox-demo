@@ -353,6 +353,9 @@ tile_set = SubResource("TileSet_aeu1j")
 unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
+player_speed = 150.0
+player_jump_vel = -300.0
+player_name = "Slide Knight"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)

@@ -22,8 +22,7 @@ extern "C" Variant _physics_process(Variant delta) {
 	}
 	Node2D slime(".");
 	Node2D sprite("AnimatedSprite2D");
-	auto& state = GetSlimeState(slime);
-
+	SlimeState& state = GetSlimeState(slime);
 	Vector2 spd = Vector2(slime_speed, 0.0f) * float(delta) * state.direction;
 	slime.set_position(slime.get_position() + spd);
 	// Change direction if rays collide

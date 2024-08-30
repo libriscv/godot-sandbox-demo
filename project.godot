@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [editor]
 
 movie_writer/movie_file="/home/gonzo/New Game Project/testmovie.avi"
+script/docker.macos="/usr/local/bin/docker"
+script/docker.windows="C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe"
 
 [input]
 
