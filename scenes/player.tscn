@@ -1,8 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://88cmbmcw8e1j"]
+[gd_scene load_steps=30 format=3 uid="uid://88cmbmcw8e1j"]
 
 [ext_resource type="Texture2D" uid="uid://e8ly5vhjwurk" path="res://assets/sprites/knight.png" id="1_1y0ug"]
 [ext_resource type="Script" path="res://scenes/player/player.elf" id="1_l4exu"]
-[ext_resource type="Script" path="res://test/test.elf" id="3_pve2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_88l7n"]
 size = Vector2(12, 12)
@@ -209,9 +208,6 @@ animations = [{
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_l4exu")
-player_speed = 150.0
-player_jump_vel = -300.0
-player_name = "Slide Knight"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -223,8 +219,3 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_dypv1")
 animation = &"idle"
 autoplay = "idle"
-
-[node name="Sandbox" type="Sandbox" parent="."]
-monitor_heap_usage = 74728
-monitor_global_calls_made = 56348
-script = ExtResource("3_pve2h")

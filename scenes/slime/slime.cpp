@@ -20,7 +20,6 @@ extern "C" Variant _physics_process(Variant delta) {
 		Node("AnimatedSprite2D")("play", "idle");
 		return {};
 	}
-
 	Node2D slime(".");
 	Node2D sprite("AnimatedSprite2D");
 	auto& state = GetSlimeState(slime);
