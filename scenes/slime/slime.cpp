@@ -31,7 +31,7 @@ extern "C" Variant _physics_process(Variant delta) {
 	if (state.direction > 0 && Node("raycast_right")("is_colliding")) {
 		state.direction = -1;
 		sprite.set("flip_h", true);
-		sprite("play", "spawn");
+		sprite("play", std::u32string(U"spawn"));
 	} else if (state.direction < 0 && Node("raycast_left")("is_colliding")) {
 		state.direction = 1;
 		sprite.set("flip_h", false);

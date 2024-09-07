@@ -124,7 +124,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"died",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -221,10 +221,12 @@ shape = SubResource("RectangleShape2D_88l7n")
 texture_filter = 1
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_dypv1")
-animation = &"idle"
+animation = &"died"
 autoplay = "idle"
+frame = 3
+frame_progress = 1.0
 
 [node name="Sandbox" type="Sandbox" parent="."]
-monitor_heap_usage = 74728
-monitor_global_calls_made = 56348
+monitor_heap_usage = 74216
+monitor_global_calls_made = 8732
 script = ExtResource("3_pve2h")

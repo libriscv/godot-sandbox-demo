@@ -1,16 +1,14 @@
-[gd_scene load_steps=31 format=4 uid="uid://b84pppfu6tvr1"]
+[gd_scene load_steps=29 format=4 uid="uid://b84pppfu6tvr1"]
 
 [ext_resource type="Script" path="res://test/test.gd" id="1_n3m73"]
-[ext_resource type="Script" path="res://test/test.elf" id="2_p7q4e"]
+[ext_resource type="Script" path="res://test/test.elf" id="2_naj2m"]
 [ext_resource type="PackedScene" uid="uid://xeqdf1ewjhxu" path="res://scenes/coin.tscn" id="3_7jmnu"]
-[ext_resource type="Script" path="res://rust/rust_program.gd" id="3_imm85"]
-[ext_resource type="Script" path="res://rust/rust.elf" id="4_331sp"]
 [ext_resource type="Texture2D" uid="uid://bpcjl24ocxxgn" path="res://assets/tiles/bg_santorini_layers/bg_santorini_1.png" id="5_xqaax"]
-[ext_resource type="PackedScene" uid="uid://88cmbmcw8e1j" path="res://scenes/player.tscn" id="6_8caog"]
+[ext_resource type="PackedScene" uid="uid://88cmbmcw8e1j" path="res://scenes/player/player.tscn" id="6_8caog"]
 [ext_resource type="Texture2D" uid="uid://cee0asjwgfgcb" path="res://assets/tiles/bg_santorini_layers/bg_santorini_2.png" id="6_rclri"]
 [ext_resource type="Texture2D" uid="uid://bg1iclr2emsw7" path="res://assets/sprites/world_tileset.png" id="8_uv7qc"]
 [ext_resource type="Script" path="res://scenes/label.gd" id="9_le0dg"]
-[ext_resource type="PackedScene" uid="uid://b3ve27fwfptk0" path="res://scenes/kill_zone.tscn" id="10_ncy1u"]
+[ext_resource type="PackedScene" uid="uid://b3ve27fwfptk0" path="res://scenes/killzone/kill_zone.tscn" id="10_ncy1u"]
 [ext_resource type="PackedScene" uid="uid://eqb1p24hpo2f" path="res://scenes/platform.tscn" id="11_qhrto"]
 [ext_resource type="PackedScene" uid="uid://bw8koyu6x3go7" path="res://scenes/slime.tscn" id="12_01vj1"]
 [ext_resource type="Texture2D" uid="uid://bonu1483yqpak" path="res://assets/Screenshot from 2024-08-16 09-04-37.png" id="13_gd6ow"]
@@ -313,23 +311,14 @@ _data = {
 [node name="Node" type="Node"]
 
 [node name="C++ program" type="Sandbox" parent="." node_paths=PackedStringArray("program_elf")]
-monitor_global_calls_made = 55453
+monitor_global_calls_made = 8726
 script = ExtResource("1_n3m73")
 program_elf = NodePath("Sandbox_TestTest")
 
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
-monitor_heap_usage = 74728
-monitor_global_calls_made = 55453
-script = ExtResource("2_p7q4e")
-
-[node name="Rust program" type="Node" parent="." node_paths=PackedStringArray("rust")]
-script = ExtResource("3_imm85")
-rust = NodePath("Sandbox_RustRustProgram")
-
-[node name="Sandbox_RustRustProgram" type="Sandbox" parent="Rust program"]
-monitor_heap_usage = 120
-monitor_global_calls_made = 55453
-script = ExtResource("4_331sp")
+monitor_heap_usage = 74216
+monitor_global_calls_made = 8726
+script = ExtResource("2_naj2m")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 z_index = -5

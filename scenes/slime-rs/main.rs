@@ -1,11 +1,16 @@
 mod godot;
+use godot::api::*;
 use godot::node::*;
 use godot::variant::*;
 
 const SPEED: f32 = 50.0;
 
-#[no_mangle]
+ #[no_mangle]
 pub fn _physics_process(delta: Variant) -> Variant {
+	if Engine::is_editor_hint() {
+		return Variant::new_nil();
+	}
+
 	let slime = Node::new_from_path(".");
 	let sprite = Node::new_from_path("AnimatedSprite2D");
 
@@ -22,8 +27,7 @@ pub fn _physics_process(delta: Variant) -> Variant {
 	if direction > 0.0 && ray_right.call("is_colliding", &[]).to_bool() {
 		sprite.call("set_flip_h", &[Variant::new_bool(true)]);
 	}
-	else
-	if direction < 0.0 && ray_left.call("is_colliding", &[]).to_bool() {
+	else if direction < 0.0 && ray_left.call("is_colliding", &[]).to_bool() {
 		sprite.call("set_flip_h", &[Variant::new_bool(false)]);
 	}
 
