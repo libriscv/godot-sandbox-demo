@@ -353,9 +353,6 @@ tile_set = SubResource("TileSet_aeu1j")
 unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
-player_speed = 150.0
-player_jump_vel = -300.0
-player_name = "Slide Knight"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -448,10 +445,10 @@ shape = SubResource("WorldBoundaryShape2D_2g1d0")
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Slime" parent="Enemies" instance=ExtResource("12_01vj1")]
-position = Vector2(-432, 192)
+position = Vector2(-38, 208)
 
 [node name="Slime2" parent="Enemies" instance=ExtResource("12_01vj1")]
-position = Vector2(-48, 208)
+position = Vector2(-422, 192)
 
 [node name="Texts" type="Node" parent="."]
 

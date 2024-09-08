@@ -3,16 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6t7ct1k43itk"
-path="res://.godot/imported/Sandbox.svg-133e2183fe3e2e6e1ce418581d6346e9.ctex"
-metadata={
-"has_editor_variant": true,
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://addons/godot_sandbox/Sandbox.svg"
-dest_files=["res://.godot/imported/Sandbox.svg-133e2183fe3e2e6e1ce418581d6346e9.ctex"]
 
 [params]
 

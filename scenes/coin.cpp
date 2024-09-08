@@ -23,6 +23,13 @@ extern "C" Variant _on_body_entered(Variant arg) {
 	return {};
 }
 
+extern "C" Variant _ready() {
+	if (is_editor()) {
+		Node(".")("set_process_input", false);
+	}
+	return {};
+}
+
 extern "C" Variant _process(Variant delta) {
 	if (is_editor()) {
 		Node("AnimatedSprite2D")("play", "idle");

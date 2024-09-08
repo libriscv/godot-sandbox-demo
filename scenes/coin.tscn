@@ -111,6 +111,6 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_qswrl")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.754224
+frame_progress = 0.0501481
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

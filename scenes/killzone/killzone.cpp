@@ -3,7 +3,7 @@
 extern "C" Variant _on_body_entered(Variant bodyVar) {
 	Object engine("Engine");
 	engine.set("time_scale", 0.5f);
-	Node2D body = bodyVar.as_node2d();
+	Node2D body = cast_to<Node2D>(bodyVar);
 	body.set("velocity", Vector2(0.0f, -120.0f));
 	body.get_node("CollisionShape2D").queue_free();
 	body.get_node("AnimatedSprite2D")("play", "died");

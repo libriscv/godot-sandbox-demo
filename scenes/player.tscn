@@ -123,7 +123,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"died",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -208,6 +208,9 @@ animations = [{
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_l4exu")
+player_speed = 150.0
+player_jump_vel = -300.0
+player_name = "Slide Knight"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -217,5 +220,7 @@ shape = SubResource("RectangleShape2D_88l7n")
 texture_filter = 1
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_dypv1")
-animation = &"idle"
+animation = &"died"
 autoplay = "idle"
+frame = 3
+frame_progress = 1.0

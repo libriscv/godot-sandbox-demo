@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://bw8koyu6x3go7"]
 
+[ext_resource type="Script" path="res://scenes/slime/slime.elf" id="1_60t2x"]
 [ext_resource type="Texture2D" uid="uid://bdiefeagyvmbq" path="res://assets/sprites/slime_green.png" id="1_cov0q"]
-[ext_resource type="Script" path="res://scenes/slime/slime.elf" id="1_mqhuk"]
-[ext_resource type="PackedScene" uid="uid://b3ve27fwfptk0" path="res://scenes/kill_zone.tscn" id="2_4vnuq"]
+[ext_resource type="PackedScene" uid="uid://b3ve27fwfptk0" path="res://scenes/killzone/kill_zone.tscn" id="2_4vnuq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pyavc"]
 atlas = ExtResource("1_cov0q")
@@ -77,7 +77,7 @@ animations = [{
 size = Vector2(8, 11)
 
 [node name="Slime" type="Node2D"]
-script = ExtResource("1_mqhuk")
+script = ExtResource("1_60t2x")
 slime_speed = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -86,6 +86,7 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_jcpv2")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.940733
 
 [node name="KillZone" parent="." instance=ExtResource("2_4vnuq")]
 collision_mask = 2

@@ -3,6 +3,7 @@
 
 static float jump_velocity = -300.0f;
 static float player_speed = 150.0f;
+static float direction = 0.0f;
 
 SANDBOXED_PROPERTIES(3, {
 	.name = "player_speed",
@@ -26,38 +27,46 @@ SANDBOXED_PROPERTIES(3, {
 
 extern "C" Variant _physics_process(Variant delta) {
 	if (is_editor()) {
-		if (is_part_of_tree(Node(".")))
-			Node("AnimatedSprite2D")("play", "idle");
+		if (is_part_of_tree(Node("."))) {
+			Dictionary d;
+			d["test"] = Node("AnimatedSprite2D");
+			d["test"]("play", "idle");
+		}
 		return {};
 	}
 	Node2D player(".");
 	Object input("Input");
-	Vector2 velocity = player.get("velocity").v2();
+	Vector2 velocity = player.get("velocity");
 	if (!player("is_on_floor")) {
-		velocity += player("get_gravity").v2() * Vector2(delta, delta);
+		velocity += player("get_gravity").v2() * float(delta);
 	}
+	Node animated_sprite("AnimatedSprite2D");
+	const bool has_died = animated_sprite.get("animation") == "died";
+	if (has_died) {
+		goto velocity_calculations;
+	}
+	direction = input("get_axis", "move_left", "move_right");
 	if (input("is_action_just_pressed", "jump") && player("is_on_floor")) {
 		velocity.y = jump_velocity;
 	}
-	float direction = input("get_axis", "move_left", "move_right");
-	Node animated_sprite("AnimatedSprite2D");
-	if (direction != 0)
+	if (direction != 0) {
 		animated_sprite.set("flip_h", (direction < 0));
-	if (std::string(animated_sprite.get("animation")) != "died") {
-		if (player("is_on_floor")) {
-			if (direction == 0) {
-				animated_sprite("play", "idle");
-			} else {
-				animated_sprite("play", "run");
-			}
-		} else {
-			animated_sprite("play", "jump");
-		}
 	}
-	Node2D arrow("Arrow");
-	float angle = int64_t(Object("Time")("get_ticks_msec")) * 0.0025f;
-	arrow.set_position(Vector2::from_angle(angle) * 50.0f);
-	velocity.x = direction * player_speed;
+	if (player("is_on_floor")) {
+		if (direction == 0) {
+			animated_sprite("play", "idle");
+		} else {
+			animated_sprite("play", "run");
+		}
+	} else {
+		animated_sprite("play", "jump");
+	}
+velocity_calculations:
+	if (direction != 0) {
+		velocity.x = direction * player_speed;
+	} else {        
+		velocity.x = std::fmin(velocity.x, player_speed);
+	}
 	player.set("velocity", velocity);
 	return player("move_and_slide");
 }
