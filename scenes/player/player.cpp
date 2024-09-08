@@ -33,22 +33,16 @@ extern "C" Variant _physics_process(Variant delta) {
 	Node2D player(".");
 	Object input("Input");
 	Vector2 velocity = player.get("velocity").v2();
-	// Add the gravity.
 	if (!player("is_on_floor")) {
-		velocity += player("get_gravity").v2() * delta;
+		velocity += player("get_gravity").v2() * Vector2(delta, delta);
 	}
-
-	// Handle jump.
-	if (input("is_action_just_pressed", "jump") && player("is_on_floor"))
+	if (input("is_action_just_pressed", "jump") && player("is_on_floor")) {
 		velocity.y = jump_velocity;
-
-	// Get the input direction and handle the movement/deceleration.
+	}
 	float direction = input("get_axis", "move_left", "move_right");
-
 	Node animated_sprite("AnimatedSprite2D");
 	if (direction != 0)
 		animated_sprite.set("flip_h", (direction < 0));
-
 	if (std::string(animated_sprite.get("animation")) != "died") {
 		if (player("is_on_floor")) {
 			if (direction == 0) {
@@ -60,9 +54,8 @@ extern "C" Variant _physics_process(Variant delta) {
 			animated_sprite("play", "jump");
 		}
 	}
-
 	Node2D arrow("Arrow");
-	auto angle = int64_t(Object("Time")("get_ticks_msec")) * 0.0025f;
+	float angle = int64_t(Object("Time")("get_ticks_msec")) * 0.0025f;
 	arrow.set_position(Vector2::from_angle(angle) * 50.0f);
 	velocity.x = direction * player_speed;
 	player.set("velocity", velocity);
