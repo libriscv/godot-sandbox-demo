@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
-run/main_scene="res://scenes/riscv_emulator.tscn"
+config/name="Slide Knight Project"
+run/main_scene="res://slide_knight/scenes/riscv_emulator.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
