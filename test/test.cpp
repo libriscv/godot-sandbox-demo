@@ -6,47 +6,53 @@ int main() {
 		timer_created = true;
 		const char *val1 = "123";
 		const int val2 = 456;
-		Timer::periodic(0.1, [=] (Variant timer) -> Variant {
+		Timer::native_periodic(0.1, [=] (Object timer) -> Variant {
 			print("Timer with values: ", val1, val2);
 			static int counter = 0;
-			if (++counter == 4)
+			if (++counter >= 4)
 				timer.as_node().queue_free();
 			return {};
 		});
 	}
+
+	Node2D n = ClassDB::instantiate("AnimatedSprite2D");
+	n.set_name("Test1");
+	print(n.get_name());
+	print(n.get_position());
 }
 
 extern "C" Variant empty_function() {
-	return Variant();
+	return {};
 }
-extern "C" Variant arg1_function() {
-	return Variant();
+extern "C" Variant arg1_function(int, int, int, int, int, int, int) {
+	return {};
 }
 
 extern "C" Variant calling_function(Variant& callable) {
 	return callable.call();
 }
 
-extern "C" Variant my_function(Variant varg) {
-	print("Hello, ", 124.5, " world!\n");
-	print("Arg: ", varg);
-	return varg; //
+extern "C" Variant my_function(Dictionary text) {
+	//print("Hello, ", 124.5, " world!\n");
+	//print("Arg: ", text);
+	return text; //
 }
 
-extern "C" Variant function3(Variant x, Variant y, Variant text) {
-	Array a({x, y, text});
+extern "C" Variant function3(long x, long y, String text) {
+	String s = "A value";
+	Array a({x, y});
 	a.push_front(2);
 	a.pop_front();
-	Dictionary d;
+	Dictionary d = Dictionary::Create();
 	d["test1"] = "test2";
 	d[Vector3()] = 0.5;
-	d[String("A string")] = String("A value");
+	d[String("A string")] = s;
 	d[String("A string")] = String("Another value");
 	std::u32string stest = *d["A string"];
 	print("Stest: ", stest);
 
-	print("x = ", x, " y = ", y, " array = ", a, " dict = ", d);
-	return text;
+	print("x = ", x, " y = ", y, " array = ", a, " dict = ", d, " string = ", s);
+	return {};
 }
 
 static Variant copy;
@@ -74,4 +80,30 @@ extern "C" Variant test_buffer(Variant var) {
 
 extern "C" Variant player_process(Variant v_time_passed) {
 	return {};
+}
+
+extern "C" Variant adding_function(int a1, int a2, int a3, int a4, int a5, int a6) {
+	return a1 + a2 + a3 + a4 + a5 + a6;
+}
+
+#include <cstring>
+#include <memory>
+static inline void memset_i32(int *ptr, int value, size_t num) {
+	if (num == 0) return;
+	memcpy(ptr, &value, sizeof(int));
+	size_t start = 1, step = 1;
+	for ( ; start + step <= num; start += step, step *= 2)
+		memcpy(ptr + start, ptr, sizeof(int) * step);
+
+	if (start < num)
+		memcpy(ptr + start, ptr, sizeof(int) * (num - start));
+}
+
+extern "C" Variant pba_operation(PackedArray<float> farr) {
+	auto array = std::make_unique_for_overwrite<float[]>(100000);
+	const float   f = 1.0f;
+	const int32_t val = *(int32_t *)&f;
+	memset_i32((int *)array.get(), val, 100000);
+	farr.store(array.get(), 100000);
+	return Nil;
 }

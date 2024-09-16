@@ -31,18 +31,18 @@ struct AnimatedSprite2D : public Node2D {
 	Variant animation() { return this->get("animation"); }
 };
 
-extern "C" Variant _physics_process(Variant delta) {
+extern "C" Variant _physics_process(double delta) {
 	if (is_editor()) {
-		if (is_part_of_tree(Node("."))) {
-			Dictionary d;
+		if (is_part_of_tree(get_node())) {
+			Dictionary d = Dictionary::Create();
 			d["test"] = Node("AnimatedSprite2D");
 			d["test"]("play", "idle");
 		}
 		return {};
 	}
 
-	Node2D player(".");
-	Object input("Input");
+	Node2D player = get_node();
+	Object input = Input::get_singleton();
 	Vector2 velocity = player.get("velocity");
 
 	// Add the gravity.

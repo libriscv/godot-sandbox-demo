@@ -1,46 +1,46 @@
 #include "api.hpp"
 static int coins = 0;
 
-extern "C" void reset_game() {
+extern "C" Variant reset_game() {
 	coins = 0;
+	return Nil;
 }
 
 static void add_coin(const Node& player) {
 	coins ++;
-	auto coinlabel = player.get_node("../Texts/CoinLabel");
+	Node coinlabel = player.get_node("../Texts/CoinLabel");
 	coinlabel.set("text", "You have collected "
 		+ std::to_string(coins) + ((coins == 1) ? " coin" : " coins"));
 }
 
-extern "C" Variant _on_body_entered(Variant arg) {
-	Node player_node = arg.as_node();
-	if (player_node.get_name() != "Player")
-		return {};
+extern "C" Variant _on_body_entered(Node2D node) {
+	if (node.get_name() != "Player")
+		return Nil;
 
-	Node(".").queue_free(); // Remove the current coin!
-	add_coin(player_node);
-	return {};
+	get_node().queue_free(); // Remove the current coin!
+	add_coin(node);
+	return Nil;
 }
 
 extern "C" Variant _ready() {
 	if (is_editor()) {
-		Node(".")("set_process_input", false);
+		get_node()("set_process_input", false);
 	}
-	return {};
+	return Nil;
 }
 
-extern "C" Variant _process(Variant delta) {
+extern "C" Variant _process(double delta) {
 	if (is_editor()) {
 		Node("AnimatedSprite2D")("play", "idle");
 	}
-	return {};
+	return Nil;
 }
 
-extern "C" Variant _input(Variant event) {
+extern "C" Variant _input(Object event) {
 	if (event("is_action_pressed", "jump")) {
-		Node2D(".").set("modulate", 0xFF6060FF);
+		get_node().set("modulate", 0xFF6060FF);
 	} else if (event("is_action_released", "jump")) {
-		Node2D(".").set("modulate", 0xFFFFFFFF);
+		get_node().set("modulate", 0xFFFFFFFF);
 	}
-	return {};
+	return Nil;
 }
