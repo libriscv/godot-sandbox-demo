@@ -1,20 +1,20 @@
 #include "api.hpp"
 
-extern "C" Variant _on_body_entered(Variant bodyVar) {
-	Object engine("Engine");
-	engine.set("time_scale", 0.5f);
-	Node2D body = cast_to<Node2D>(bodyVar);
+extern "C" Variant _on_body_entered(Object bodyVar) {
+	Engine::set_time_scale(0.5);
+
+	Node2D body = cast_to<Node2D> (bodyVar);
 	body.set("velocity", Vector2(0.0f, -120.0f));
 	body.get_node("CollisionShape2D").queue_free();
-	body.get_node("AnimatedSprite2D")("play", "died");
-	Node timer = Node("Timer");
-	timer("start");
-	return {};
-}
+	print("Playing dead");
+	body.get_node("AnimatedSprite2D")("play", std::u32string(U"died"));
 
-extern "C" Variant _on_timer_timeout() {
-	Object engine("Engine");
-	engine.set("time_scale", 1.0f);
-	get_tree().call_deferred("reload_current_scene");
+	Timer::native_oneshot(1.0f, [] (Object timer) -> Variant {
+		timer.as_node().queue_free();
+		Engine::set_time_scale(1.0);
+
+		get_tree().call_deferred("reload_current_scene");
+		return {};
+	});
 	return {};
 }

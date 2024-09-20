@@ -15,14 +15,16 @@ struct SlimeState {
 };
 PER_OBJECT(SlimeState);
 
-extern "C" Variant _physics_process(Variant delta) {
+extern "C" Variant _physics_process(double delta) {
 	if (is_editor()) {
 		Node("AnimatedSprite2D")("play", "idle");
 		return {};
 	}
-	Node2D slime(".");
+
+	Node2D slime = get_node();
 	Node2D sprite("AnimatedSprite2D");
-	SlimeState& state = GetSlimeState(slime);
+	auto& state = GetSlimeState(slime);
+
 	Vector2 spd = Vector2(slime_speed, 0.0f) * float(delta) * state.direction;
 	slime.set_position(slime.get_position() + spd);
 	// Change direction if rays collide

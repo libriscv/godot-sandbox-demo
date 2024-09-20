@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6t7ct1k43itk"
-path="res://.godot/imported/Sandbox.svg-133e2183fe3e2e6e1ce418581d6346e9.ctex"
+uid="uid://dyngc5hvivrwq"
+path="res://.godot/imported/JSScript.svg-23ea76ef5bb204bfc79c51e96fbd0440.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot_sandbox/Sandbox.svg"
-dest_files=["res://.godot/imported/Sandbox.svg-133e2183fe3e2e6e1ce418581d6346e9.ctex"]
+source_file="res://addons/godot_sandbox/JSScript.svg"
+dest_files=["res://.godot/imported/JSScript.svg-23ea76ef5bb204bfc79c51e96fbd0440.ctex"]
 
 [params]
 
