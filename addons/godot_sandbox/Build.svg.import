@@ -3,11 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dekr76nttv4lp"
-valid=false
+path="res://.godot/imported/Build.svg-ec0c58031cc54b14eee4218baaf5b061.ctex"
+metadata={
+"has_editor_variant": true,
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://addons/godot_sandbox/Build.svg"
+dest_files=["res://.godot/imported/Build.svg-ec0c58031cc54b14eee4218baaf5b061.ctex"]
 
 [params]
 
