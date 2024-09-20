@@ -317,18 +317,23 @@ script = ExtResource("1_sgyv1")
 my_program = NodePath("Sandbox_ZigZig")
 
 [node name="Sandbox_ZigZig" type="Sandbox" parent="Zig program"]
-memory_max = 64
-monitor_global_calls_made = 423307
+monitor_global_calls_made = 54191
+monitor_global_instance_count = 9
+monitor_accumulated_startup_time = 0.020691
 script = ExtResource("1_xixmb")
 
 [node name="C++ program" type="Sandbox" parent="." node_paths=PackedStringArray("my_program")]
-monitor_global_calls_made = 423307
+monitor_global_calls_made = 54191
+monitor_global_instance_count = 9
+monitor_accumulated_startup_time = 0.020691
 script = ExtResource("1_n3m73")
 my_program = NodePath("Sandbox_TestTest")
 
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
 monitor_heap_usage = 74216
-monitor_global_calls_made = 423307
+monitor_global_calls_made = 54191
+monitor_global_instance_count = 9
+monitor_accumulated_startup_time = 0.020691
 script = ExtResource("2_naj2m")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]

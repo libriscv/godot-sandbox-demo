@@ -218,6 +218,7 @@ position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_88l7n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.729412, 0.282353, 0.513726, 1)
 texture_filter = 1
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_dypv1")
@@ -226,5 +227,7 @@ autoplay = "idle"
 
 [node name="Sandbox" type="Sandbox" parent="."]
 monitor_heap_usage = 74216
-monitor_global_calls_made = 418845
+monitor_global_calls_made = 4640
+monitor_global_instance_count = 9
+monitor_accumulated_startup_time = 0.020253
 script = ExtResource("3_pve2h")

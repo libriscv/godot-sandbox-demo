@@ -15,10 +15,23 @@ int main() {
 		});
 	}
 
-	Node2D n = ClassDB::instantiate("AnimatedSprite2D");
-	n.set_name("Test1");
-	print(n.get_name());
-	print(n.get_position());
+	Object j = ClassDB::instantiate("JSON");
+	j("parse",
+	R"({
+		"pi": 3.141,
+		"happy": true,
+		"name": "Niels",
+		"nothing": null,
+		"answer": {
+			"everything": 42
+		},
+		"list": [1, 0, 2],
+		"object": {
+			"currency": "USD",
+			"value": 42.99
+		}
+	})");
+	print(j.get("data"));
 }
 
 extern "C" Variant empty_function() {
@@ -90,7 +103,7 @@ extern "C" Variant adding_function(int a1, int a2, int a3, int a4, int a5, int a
 #include <memory>
 static inline void memset_i32(int *ptr, int value, size_t num) {
 	if (num == 0) return;
-	memcpy(ptr, &value, sizeof(int));
+	*ptr = value;
 	size_t start = 1, step = 1;
 	for ( ; start + step <= num; start += step, step *= 2)
 		memcpy(ptr + start, ptr, sizeof(int) * step);

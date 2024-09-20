@@ -1,8 +1,9 @@
-#include "api.hpp"
+#include "player.hpp"
 
 static float jump_velocity = -300.0f;
 static float player_speed = 150.0f;
 static float direction = 0.0f;
+static std::string player_name = "Slight Knight";
 
 SANDBOXED_PROPERTIES(3, {
 	.name = "player_speed",
@@ -19,17 +20,10 @@ SANDBOXED_PROPERTIES(3, {
 }, {
 	.name = "player_name",
 	.type = Variant::STRING,
-	.getter = []() -> Variant { return "Slide Knight"; },
-	.setter = [](Variant value) -> Variant { return {}; },
+	.getter = []() -> Variant { return player_name; },
+	.setter = [](Variant value) -> Variant { return player_name = value.as_std_string(); },
 	.default_value = Variant{"Slight Knight"},
 });
-
-struct AnimatedSprite2D : public Node2D {
-	AnimatedSprite2D(std::string_view path) : Node2D(path) {}
-
-	void play(Variant animation) { this->voidcall("play", animation); }
-	Variant animation() { return this->get("animation"); }
-};
 
 extern "C" Variant _physics_process(double delta) {
 	if (is_editor()) {
@@ -38,7 +32,7 @@ extern "C" Variant _physics_process(double delta) {
 			d["test"] = Node("AnimatedSprite2D");
 			d["test"]("play", "idle");
 		}
-		return {};
+		return Nil;
 	}
 
 	Node2D player = get_node();
@@ -83,4 +77,21 @@ velocity_calculations:
 	player.set("velocity", velocity);
 
 	return player("move_and_slide");
+}
+
+static float x = 0.0f;
+static float z = 0.0f;
+
+extern "C" Variant _process() {
+	static constexpr float period = 1.0f;
+	// Rainbow color modulation
+	const int r = Math::sin(x * period) * 127 + 128;
+	const int g = Math::sin(z * period) * 127 + 128;
+	const int b = Math::sin((x + z) * period) * 127 + 128;
+
+	const uint32_t mod = 255 | r << 8 | g << 16 | b << 24;
+	get_node("AnimatedSprite2D").set("modulate", mod);
+	x += 0.1f;
+	z += 0.01f;
+	return Nil;
 }

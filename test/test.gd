@@ -22,6 +22,18 @@ func measure_callable_overhead():
 static func plain_function():
 	return;
 
+func instantiation_benchmark():
+	var instances : Array
+	for i in 100:
+		var s = Sandbox.new()
+		s.set_program(Sandbox_TestTest)
+		instances.push_back(s)
+	print("Global instance count: ", my_program.get("monitor_global_instance_count"))
+	print("Accumulated startup time: ", my_program.get("monitor_accumulated_startup_time"))
+	print("Average startup time: ", my_program.get("monitor_accumulated_startup_time") / my_program.get("monitor_global_instance_count") * 1e6, " us")
+	for i in 100:
+		instances[i].queue_free()
+
 func _ready() -> void:
 	#my_program.assault("Variant", 10000)
 
@@ -96,9 +108,10 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func pf32a_operation(pf32a : PackedFloat32Array):
-	#for n in pf32a.size():
-	#	pf32a[n] = 0.0
-	pf32a.fill(1.0)
+	for n in pf32a.size():
+		pf32a[n] = 1.0
+	assert(pf32a[0] == 1.0)
+	#pf32a.fill(1.0)
 
 func gds_function(_a1, _a2, _a3, _a4, _a5, _a6, _a7):
 	return;
