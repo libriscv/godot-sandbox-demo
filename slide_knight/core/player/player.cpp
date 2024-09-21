@@ -84,6 +84,12 @@ static float z = 0.0f;
 
 extern "C" Variant _process() {
 	static constexpr float period = 1.0f;
+
+	AnimatedSprite2D animated_sprite("AnimatedSprite2D");
+	const bool has_died = animated_sprite.animation() == "died";
+	if (!has_died)
+		return Nil;
+
 	// Rainbow color modulation
 	const int r = Math::sin(x * period) * 127 + 128;
 	const int g = Math::sin(z * period) * 127 + 128;
