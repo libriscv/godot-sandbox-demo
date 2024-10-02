@@ -9,3 +9,8 @@ pub fn main() !void {
 export fn add(result: *api.Variant, x: i32, y: i32) void {
 	result.init_int(x + y);
 }
+
+export fn test_call(result: *api.Variant, v: *api.Variant) void {
+	// Call a method on the object, with no arguments
+	result.* = v.call("call", &[_]api.Variant{});
+}

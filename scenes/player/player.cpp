@@ -79,19 +79,26 @@ velocity_calculations:
 	return player("move_and_slide");
 }
 
-static float x = 0.0f;
-static float z = 0.0f;
-
 extern "C" Variant _process() {
-	static constexpr float period = 1.0f;
-	// Rainbow color modulation
-	const int r = Math::sin(x * period) * 127 + 128;
-	const int g = Math::sin(z * period) * 127 + 128;
-	const int b = Math::sin((x + z) * period) * 127 + 128;
+	AnimatedSprite2D animated_sprite("AnimatedSprite2D");
+	if (is_editor()) {
+		animated_sprite.set("modulate", 0xFFFFFFFF);
+		return Nil;
+	}
 
-	const uint32_t mod = 255 | r << 8 | g << 16 | b << 24;
-	get_node("AnimatedSprite2D").set("modulate", mod);
-	x += 0.1f;
-	z += 0.01f;
+	const bool has_died = animated_sprite.animation() == "died";
+	if (has_died) {
+		static constexpr float period = 3.0f;
+		static float x = 0.0f;
+		// Death color modulation
+		const int redness = Math::sin(x * period) * 127 + 128;
+		const int r = 255;
+		const int g = redness;
+		const int b = redness;
+
+		const uint32_t mod = 255 | b << 8 | g << 16 | r << 24;
+		animated_sprite.set("modulate", mod);
+		x += 0.1f;
+	}
 	return Nil;
 }

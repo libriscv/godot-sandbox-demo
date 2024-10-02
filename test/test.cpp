@@ -15,6 +15,8 @@ int main() {
 		});
 	}
 
+	print(Vector3 { 1.5, 2.5, 3.5 }("floor"));
+
 	Object j = ClassDB::instantiate("JSON");
 	j("parse",
 	R"({
@@ -39,6 +41,13 @@ extern "C" Variant empty_function() {
 }
 extern "C" Variant arg1_function(int, int, int, int, int, int, int) {
 	return {};
+}
+
+extern "C" Variant method_call_bench() {
+	//return Vector3 { 1.5, 2.5, 3.5 }("floor");
+	Variant(Vector3 { 1.5, 2.5, 3.5 }).void_method("floor");
+	return Nil;
+	//return Vector3 { 1.5, 2.5, 3.5 }.floor();
 }
 
 extern "C" Variant calling_function(Variant& callable) {
@@ -119,4 +128,10 @@ extern "C" Variant pba_operation(PackedArray<float> farr) {
 	memset_i32((int *)array.get(), val, 100000);
 	farr.store(array.get(), 100000);
 	return Nil;
+}
+
+EMBED_BINARY(binary_data, "scenes/mod/lua.elf.gz")
+
+extern "C" Variant get_embedded_luajit() {
+	return PackedArray<uint8_t>((const uint8_t *)binary_data, binary_data_size);
 }

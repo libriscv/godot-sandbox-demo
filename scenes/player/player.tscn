@@ -212,13 +212,16 @@ script = ExtResource("1_l4exu")
 player_speed = 150.0
 player_jump_vel = -300.0
 player_name = "Slide Knight"
+references_max = 100
+memory_max = 16
+execution_timeout = 8000
+use_unboxed_arguments = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_88l7n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.729412, 0.282353, 0.513726, 1)
 texture_filter = 1
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_dypv1")
@@ -227,7 +230,7 @@ autoplay = "idle"
 
 [node name="Sandbox" type="Sandbox" parent="."]
 monitor_heap_usage = 74216
-monitor_global_calls_made = 4640
-monitor_global_instance_count = 9
-monitor_accumulated_startup_time = 0.020253
+monitor_global_calls_made = 8296864
+monitor_global_instance_count = 10
+monitor_accumulated_startup_time = 0.024698
 script = ExtResource("3_pve2h")

@@ -17,7 +17,39 @@ extern "C" Variant _on_body_entered(Node2D node) {
 	if (node.get_name() != "Player")
 		return Nil;
 
-	get_node().queue_free(); // Remove the current coin!
+	Node coin = get_node();
+	/*Array meta_list = coin("get_meta_list").as_array();
+	for (auto str : meta_list) {
+		print(str);
+	}*/
+	if (coin("get_meta", "secret", false)) {
+		print("Was a secret!");
+		Node2D scene = load("res://scenes/mod/mod.tscn")("instantiate").as_node();
+		get_node("../..").add_child(scene);
+		scene.set_name("mod");
+		scene.set_position(Vector2(250, 180));
+		Variant t = Timer::native_periodic(0.0125, [] (Node timer) -> Variant {
+			Node2D mod = get_node("../../mod"); // From the Timers POV
+			static Vector2 origin = mod.get_position();
+			static constexpr float period = 2.0f;
+			static float x = 0.0f;
+			const float progress = 1.0f - x / 4.0f;
+			if (progress <= 0.0f) {
+				timer.queue_free();
+			}
+
+			const float anim = (Math::sin(x * period + x) * 2.0f - 1.0f) * 0.1f * progress;
+			const Vector2 scale = Vector2::From(1.0f + anim);
+			mod.set_position(origin - scale * 55.0f);
+			mod.set_scale(scale);
+			x += 0.1f;
+			return Nil;
+		});
+		// Move the timer to the scene root node
+		get_node().remove_child(t.as_node());
+		get_node("../..").add_child(t.as_node());
+	}
+	coin.queue_free(); // Remove the current coin!
 	add_coin(node);
 	return Nil;
 }

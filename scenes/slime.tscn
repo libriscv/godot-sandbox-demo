@@ -78,6 +78,10 @@ size = Vector2(8, 11)
 
 [node name="Slime" type="Node2D"]
 script = ExtResource("1_8l6js")
+references_max = 100
+memory_max = 16
+execution_timeout = 8000
+use_unboxed_arguments = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -85,10 +89,14 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_jcpv2")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.65087
+frame_progress = 0.0692644
 
 [node name="KillZone" parent="." instance=ExtResource("2_4vnuq")]
 collision_mask = 2
+references_max = 100
+memory_max = 16
+execution_timeout = 8000
+use_unboxed_arguments = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2(0, -5.5)
