@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include <cmath>
 
 static float jump_velocity = -300.0f;
 static float player_speed = 150.0f;
@@ -73,7 +74,7 @@ velocity_calculations:
 	if (direction != 0)
 		velocity.x = direction * player_speed;
 	else
-		velocity.x = std::fmin(velocity.x, player_speed);
+		velocity.x = fmin(velocity.x, player_speed);
 	player.set("velocity", velocity);
 
 	return player("move_and_slide");
