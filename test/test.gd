@@ -89,6 +89,15 @@ func instantiation_benchmark():
 func _ready() -> void:
 	#my_program.assault("Variant", 10000)
 
+	if (my_program.is_binary_translated()):
+		print("Test.cpp was binary translated")
+	else:
+		print("Test.cpp IS NOT binary translated")
+		var bintr = my_program.emit_binary_translation()
+		var f = FileAccess.open("res://bintr_test.cpp", FileAccess.WRITE)
+		f.store_string(bintr)
+		f.close()
+
 	var aa : Array
 	aa.push_back("Array 123")
 	aa.push_back("Array 456")

@@ -230,7 +230,7 @@ autoplay = "idle"
 
 [node name="Sandbox" type="Sandbox" parent="."]
 monitor_heap_usage = 74216
-monitor_global_calls_made = 8296864
+monitor_global_calls_made = 865033
 monitor_global_instance_count = 10
-monitor_accumulated_startup_time = 0.024698
+monitor_accumulated_startup_time = 0.019145
 script = ExtResource("3_pve2h")

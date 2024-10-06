@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [editor]
 
 movie_writer/movie_file="/home/gonzo/New Game Project/testmovie.avi"
+script/docker_enabled=false
+script/global_defines=["VALUE=1"]
 
 [input]
 

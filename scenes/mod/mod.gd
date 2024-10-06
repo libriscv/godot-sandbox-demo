@@ -8,3 +8,12 @@ func _ready():
 
 	var s : Sandbox = get_node("LuaVM")
 	s.load_buffer(buffer)
+
+	if (s.is_binary_translated()):
+		print("LuaJit was binary translated")
+	else:
+		print("LuaJit IS NOT binary translated")
+		var bintr = s.emit_binary_translation()
+		var f = FileAccess.open("res://bintr_luajit.cpp", FileAccess.WRITE)
+		f.store_string(bintr)
+		f.close()

@@ -37,6 +37,6 @@ text = "Run"
 icon = ExtResource("2_xsav0")
 
 [node name="LuaVM" type="Sandbox" parent="."]
-monitor_global_calls_made = 8296864
+monitor_global_calls_made = 865033
 monitor_global_instance_count = 10
-monitor_accumulated_startup_time = 0.024698
+monitor_accumulated_startup_time = 0.019145
