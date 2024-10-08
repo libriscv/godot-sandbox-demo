@@ -40,6 +40,7 @@ func measure_obj_callp_overhead():
 func measure_skydome_creation():
 	var cppfunc = my_program.vmcallable("createSkyDome", [10.0, 10.25]);
 
+	createSkyDome(10.0, 10.25)
 	var gds_t0 = Time.get_ticks_usec()
 	for n in 15:
 		createSkyDome(10.0, 10.25)
@@ -47,6 +48,7 @@ func measure_skydome_creation():
 	var gds_overhead = (gds_t1 - gds_t0) / 15.0;
 	print("GDScript createSkyDome time: ", gds_overhead, " micros")
 
+	cppfunc.call();
 	var t0 = Time.get_ticks_usec()
 	for n in 15:
 		cppfunc.call();
@@ -93,7 +95,7 @@ func _ready() -> void:
 		print("Test.cpp was binary translated")
 	else:
 		print("Test.cpp IS NOT binary translated")
-		var bintr = my_program.emit_binary_translation()
+		var bintr = my_program.emit_binary_translation(true, true)
 		var f = FileAccess.open("res://bintr_test.cpp", FileAccess.WRITE)
 		f.store_string(bintr)
 		f.close()
@@ -152,6 +154,8 @@ func _ready() -> void:
 	measure_obj_callp_overhead()
 
 	benchmark_method_calls()
+
+	measure_pfa_operation()
 
 	pass # Replace with function body.
 

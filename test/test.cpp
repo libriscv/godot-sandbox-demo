@@ -123,14 +123,16 @@ static inline void memset_i32(int *ptr, int value, size_t num) {
 
 extern "C" Variant pba_operation(PackedArray<float> farr) {
 	auto array = std::make_unique_for_overwrite<float[]>(100000);
-	const float   f = 1.0f;
-	const int32_t val = *(int32_t *)&f;
-	memset_i32((int *)array.get(), val, 100000);
+	for (int i = 0; i < 100000; i++)
+		array[i] = 1.0f;
+	//const float   f = 1.0f;
+	//const int32_t val = *(int32_t *)&f;
+	//memset_i32((int *)array.get(), val, 100000);
 	farr.store(array.get(), 100000);
 	return Nil;
 }
 
-EMBED_BINARY(binary_data, "scenes/mod/lua.elf.gz")
+EMBED_BINARY(binary_data, "../scenes/mod/lua.elf.gz")
 
 extern "C" Variant get_embedded_luajit() {
 	return PackedArray<uint8_t>((const uint8_t *)binary_data, binary_data_size);

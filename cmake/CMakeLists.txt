@@ -20,3 +20,8 @@ add_sandbox_program_at(killzone ${PROOT}/scenes/killzone
 add_sandbox_program_at(slime ${PROOT}/scenes/slime
     ${PROOT}/scenes/slime/slime.cpp
 )
+
+add_sandbox_program_at(test ${PROOT}/test
+    ${PROOT}/test/test.cpp
+    ${PROOT}/test/new_script.cpp
+)
