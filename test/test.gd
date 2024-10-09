@@ -157,6 +157,8 @@ func _ready() -> void:
 
 	measure_pfa_operation()
 
+	#my_program.test_embedded_mir()
+
 	pass # Replace with function body.
 
 func measure_pfa_operation():

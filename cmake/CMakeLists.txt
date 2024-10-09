@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(thp)
+project(demo)
 
 add_subdirectory(cmake)
 
@@ -21,7 +21,19 @@ add_sandbox_program_at(slime ${PROOT}/scenes/slime
     ${PROOT}/scenes/slime/slime.cpp
 )
 
+
+
+include(FetchContent)
+FetchContent_Declare(libmir
+  GIT_REPOSITORY https://github.com/vnmakarov/mir
+  GIT_TAG        master
+  )
+FetchContent_MakeAvailable(libmir)
+
+
 add_sandbox_program_at(test ${PROOT}/test
     ${PROOT}/test/test.cpp
     ${PROOT}/test/new_script.cpp
 )
+target_link_libraries(test PRIVATE mir_static)
+target_include_directories(test PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/_deps/libmir-src")

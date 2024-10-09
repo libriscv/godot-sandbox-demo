@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
-CXX="ccache riscv64-unknown-elf-g++"
-#CXX="ccache riscv64-linux-gnu-g++-14"
+#CXX="ccache riscv64-unknown-elf-g++"
+#CC="ccache riscv64-unknown-elf-gcc"
+CC="ccache riscv64-linux-gnu-gcc-12"
+CXX="ccache riscv64-linux-gnu-g++-12"
 
 mkdir -p .build
 pushd .build
