@@ -14,7 +14,7 @@ extern "C" Variant _on_body_entered(Object bodyVar) {
 		Engine::set_time_scale(1.0);
 
 		get_tree().call_deferred("reload_current_scene");
-		return {};
+		return Nil;
 	});
-	return {};
+	return Nil;
 }
