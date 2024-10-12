@@ -40,7 +40,6 @@ func measure_obj_callp_overhead():
 func measure_skydome_creation():
 	var cppfunc = my_program.vmcallable("createSkyDome", [10.0, 10.25]);
 
-	createSkyDome(10.0, 10.25)
 	var gds_t0 = Time.get_ticks_usec()
 	for n in 15:
 		createSkyDome(10.0, 10.25)
@@ -48,7 +47,6 @@ func measure_skydome_creation():
 	var gds_overhead = (gds_t1 - gds_t0) / 15.0;
 	print("GDScript createSkyDome time: ", gds_overhead, " micros")
 
-	cppfunc.call();
 	var t0 = Time.get_ticks_usec()
 	for n in 15:
 		cppfunc.call();
@@ -157,7 +155,7 @@ func _ready() -> void:
 
 	measure_pfa_operation()
 
-	#my_program.test_embedded_mir()
+	my_program.test_embedded_mir()
 
 	pass # Replace with function body.
 

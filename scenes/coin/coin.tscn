@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://xeqdf1ewjhxu"]
 
-[ext_resource type="Script" path="res://scenes/scenes.elf" id="1_ss6i0"]
+[ext_resource type="Script" path="res://scenes/coin/coin.elf" id="1_at5u4"]
 [ext_resource type="Texture2D" uid="uid://brxo4d63q1oaj" path="res://assets/sprites/coin.png" id="1_tuffh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bh5xd"]
@@ -101,7 +101,12 @@ animations = [{
 [node name="Coin" type="Area2D"]
 collision_mask = 2
 input_pickable = false
-script = ExtResource("1_ss6i0")
+script = ExtResource("1_at5u4")
+references_max = 100
+memory_max = 16
+execution_timeout = 8000
+use_unboxed_arguments = true
+use_precise_simulation = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bh5xd")

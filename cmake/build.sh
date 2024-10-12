@@ -8,6 +8,6 @@ CXX="ccache riscv64-linux-gnu-g++-12"
 
 mkdir -p .build
 pushd .build
-cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain.cmake
+cmake .. -G Ninja -DSANDBOX_RISCV_EXT_C=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain.cmake
 time ninja
 popd

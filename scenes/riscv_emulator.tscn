@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://test/test.gd" id="1_n3m73"]
 [ext_resource type="Script" path="res://zig/test_zig.gd" id="1_sgyv1"]
-[ext_resource type="Script" path="res://zig/zig.elf" id="1_xixmb"]
 [ext_resource type="Script" path="res://test/test.elf" id="2_naj2m"]
-[ext_resource type="PackedScene" uid="uid://xeqdf1ewjhxu" path="res://scenes/coin.tscn" id="3_7jmnu"]
+[ext_resource type="Script" path="res://zig/zig.elf" id="2_vhrso"]
+[ext_resource type="PackedScene" uid="uid://xeqdf1ewjhxu" path="res://scenes/coin/coin.tscn" id="3_7jmnu"]
 [ext_resource type="Texture2D" uid="uid://bpcjl24ocxxgn" path="res://assets/tiles/bg_santorini_layers/bg_santorini_1.png" id="5_xqaax"]
 [ext_resource type="PackedScene" uid="uid://88cmbmcw8e1j" path="res://scenes/player/player.tscn" id="6_8caog"]
 [ext_resource type="Texture2D" uid="uid://cee0asjwgfgcb" path="res://assets/tiles/bg_santorini_layers/bg_santorini_2.png" id="6_rclri"]
@@ -317,24 +317,23 @@ script = ExtResource("1_sgyv1")
 my_program = NodePath("Sandbox_ZigZig")
 
 [node name="Sandbox_ZigZig" type="Sandbox" parent="Zig program"]
-monitor_global_calls_made = 556811
-monitor_global_instance_count = 8
-monitor_accumulated_startup_time = 0.01888
-script = ExtResource("1_xixmb")
+monitor_global_calls_made = 400397
+monitor_global_instance_count = 36
+monitor_accumulated_startup_time = 0.642027
+script = ExtResource("2_vhrso")
 
-[node name="C++ program" type="Sandbox" parent="." node_paths=PackedStringArray("my_program")]
-monitor_global_calls_made = 556811
-monitor_global_instance_count = 8
-monitor_accumulated_startup_time = 0.01888
+[node name="C++ program" type="Node" parent="." node_paths=PackedStringArray("my_program")]
 script = ExtResource("1_n3m73")
 my_program = NodePath("Sandbox_TestTest")
 
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
+use_precise_simulation = true
 monitor_heap_usage = 73128
-monitor_global_calls_made = 556811
-monitor_global_instance_count = 8
-monitor_accumulated_startup_time = 0.01888
+monitor_global_calls_made = 400397
+monitor_global_instance_count = 36
+monitor_accumulated_startup_time = 0.642027
 script = ExtResource("2_naj2m")
+use_precise_simulation = true
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 z_index = -5
@@ -381,6 +380,7 @@ tile_set = SubResource("TileSet_aeu1j")
 unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
+use_precise_simulation = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -445,52 +445,24 @@ autoplay = "new_animation"
 
 [node name="Coin" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-72, 59)
-references_max = 100
-memory_max = 32
-execution_timeout = 8000
-use_unboxed_arguments = true
 
 [node name="Coin2" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-648, 207)
-references_max = 100
-memory_max = 32
-execution_timeout = 8000
-use_unboxed_arguments = true
 
 [node name="Coin6" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-791, 155)
-references_max = 100
-memory_max = 32
-execution_timeout = 8000
-use_unboxed_arguments = true
 
 [node name="Coin5" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-200, 70)
-references_max = 100
-memory_max = 32
-execution_timeout = 8000
-use_unboxed_arguments = true
 
 [node name="Coin3" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(71, 82)
-references_max = 100
-memory_max = 32
-execution_timeout = 8000
-use_unboxed_arguments = true
 
 [node name="Coin4" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(91, 82)
-references_max = 100
-memory_max = 32
-execution_timeout = 8000
-use_unboxed_arguments = true
 
 [node name="Coin7" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(152, 184)
-references_max = 100
-memory_max = 32
-execution_timeout = 8000
-use_unboxed_arguments = true
 metadata/secret = true
 
 [node name="KillZone" parent="." instance=ExtResource("10_ncy1u")]
@@ -498,6 +470,7 @@ references_max = 100
 memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
+use_precise_simulation = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2(91, 273)
@@ -507,9 +480,11 @@ shape = SubResource("WorldBoundaryShape2D_2g1d0")
 
 [node name="Slime" parent="Enemies" instance=ExtResource("12_01vj1")]
 position = Vector2(-432, 192)
+use_precise_simulation = false
 
 [node name="Slime2" parent="Enemies" instance=ExtResource("12_01vj1")]
 position = Vector2(-48, 208)
+use_precise_simulation = false
 
 [node name="Texts" type="Node" parent="."]
 

@@ -138,35 +138,65 @@ extern "C" Variant get_embedded_luajit() {
 	return PackedArray<uint8_t>((const uint8_t *)binary_data, binary_data_size);
 }
 
+#define ENABLE_MIR 1
+
+#if ENABLE_MIR
 extern "C" {
+#include <mir-gen.h>
 #include <c2mir/c2mir.h>
 }
 #include <cstdarg>
 
-static std::string code = R"(
-int test() {
-	return 1234;
-}
-)";
+struct Data {
+	const char *code;
+	const char *code_end;
+};
 
-static int get_cfunc(void *data) {
-	printf("C data: %p\n", data);
-	fflush(stdout);
-	return code.size();
+static int get_cfunc(void *opaque) {
+	Data *data_ptr = (Data *)opaque;
+
+	if (data_ptr->code >= data_ptr->code_end)
+		return EOF;
+	return *data_ptr->code++;
 }
 static MIR_context_t ctx;
+static const int optlevel = 2;
 
-static void error_func(MIR_error_type_t error_type, const char *format, ...) {
+static void *import_resolver(const char *name) {
+	printf("import_resolver: %s\n", name);
+	return nullptr;
+}
+
+static MIR_item_t mir_find_function(MIR_module_t module, const char *func_name) {
+	MIR_item_t func, func_item = NULL;
+	for (func = DLIST_HEAD(MIR_item_t, module->items); func != NULL; func = DLIST_NEXT(MIR_item_t, func)) {
+		if (func->item_type == MIR_func_item && strcmp(func->u.func->name, func_name) == 0) {
+			func_item = func;
+			break;
+		}
+	}
+	return func_item;
+}
+
+static void *mir_get_func(MIR_context_t ctx, MIR_module_t module, const char *func_name) {
+	MIR_item_t func_item = mir_find_function(module, func_name);
+	if (func_item == NULL) {
+		fprintf(stderr, "Error: Mir function %s not found\n", func_name);
+		exit(1);
+	}
+	return MIR_gen(ctx, func_item);
+}
+
+static __attribute__((noreturn)) void error_func(MIR_error_type_t error_type, const char *format, ...) {
 	va_list args;
 	va_start(args, format);
 	vprintf(format, args);
 	va_end(args);
 	fflush(stdout);
-	halt();
+	exit(1);
 }
 
 extern "C" Variant test_embedded_mir() {
-
 	ctx = MIR_init();
 	MIR_set_error_func(ctx, error_func);
 
@@ -176,37 +206,65 @@ extern "C" Variant test_embedded_mir() {
 		{ 1, "TEST", "1" }
 	};
 
-	printf("Initialized MIR context: %p\n", ctx);
-	fflush(stdout);
-
 	c2mir_init(ctx);
+	MIR_gen_init(ctx);
+	MIR_gen_set_optimize_level(ctx, optlevel);
 
 	printf("Compiling C code...\n");
 	fflush(stdout);
 
-	// Create a memory stream
-	std::vector<char> buffer;
-	buffer.resize(1024*1024*2); // 2MB
+	const std::string code = R"(
+int test(void *arg) {
+	return 1234;
+}
+)";
 
-	FILE *output = fmemopen(buffer.data(), buffer.size(), "w");
-	if (!output) {
-		printf("Failed to create memory stream\n");
-		fflush(stdout);
-		return Nil;
-	}
-
-	void *getc_data = (void *)code.c_str();
+	Data data;
+	data.code = code.c_str();
+	data.code_end = code.c_str() + code.size();
 
 	c2mir_options ops;
 	memset(&ops, 0, sizeof(ops));
 	ops.message_file = stdout;
-	ops.output_file_name = "test.elf";
+	ops.output_file_name = nullptr;
 	ops.include_dirs_num = include_dirs.size();
 	ops.include_dirs = include_dirs.data();
 	ops.macro_commands_num = macro_commands.size();
 	ops.macro_commands = macro_commands.data();
-	c2mir_compile(ctx, &ops, &get_cfunc, getc_data, "test.c", output);
+	int result = c2mir_compile(ctx, &ops, &get_cfunc, (void*)&data, "test.c", nullptr);
+	if (!result) {
+		printf("Failed to compile C code\n");
+		fflush(stdout);
+		return 1;
+	}
+
+	printf("*** Compilation successful\n");
+	fflush(stdout);
+
+	auto *module = DLIST_TAIL(MIR_module_t, *MIR_get_module_list(ctx));
+	if (!module) {
+		printf("No module found\n");
+		fflush(stdout);
+		return 1;
+	}
+	MIR_load_module(ctx, module);
+	MIR_link(ctx, MIR_set_gen_interface, import_resolver);
+
+	int (*fun_addr)(void *) = NULL;
+	fun_addr = (int(*)(void *))mir_get_func(ctx, module, "test");
+
+	// Finish the code-generation
+	MIR_gen_finish(ctx);
 	c2mir_finish(ctx);
+
+	// Call the function
+	printf("Calling function test at %p\n", fun_addr);
+	result = fun_addr(nullptr);
+	printf("Function result: %d\n", result);
+	fflush(stdout);
+
+	MIR_finish (ctx);
 
 	return Nil;
 }
+#endif
