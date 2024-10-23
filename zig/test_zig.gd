@@ -1,6 +1,6 @@
 extends Node
 
-@export var my_program : Sandbox_ZigZig
+@export var my_program : Sandbox
 
 static func zig_called_me():
 	print("Zig called me!")
@@ -14,7 +14,7 @@ func _ready() -> void:
 	print(my_program.get_current_instruction())
 	
 	my_program.use_unboxed_arguments = true
-	print("Zig computed: ", my_program.add(123, 456))
+	print("Zig computed: ", my_program.vmcall("add", 123, 456))
 	
 	my_program.use_unboxed_arguments = false
-	print("Zig w/callable returned: ", my_program.test_call(Callable(zig_called_me)))
+	print("Zig w/callable returned: ", my_program.vmcall("test_call", Callable(zig_called_me)))

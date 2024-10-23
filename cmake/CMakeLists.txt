@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(demo)
 
-option(MIR_ENABLED "Enable MIR" ON)
+option(MIR_ENABLED "Enable MIR" OFF)
 
 add_subdirectory(cmake)
 

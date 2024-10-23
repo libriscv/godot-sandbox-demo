@@ -42,7 +42,7 @@ extern "C" Variant _physics_process(double delta) {
 
 	// Add the gravity.
 	if (!player("is_on_floor")) {
-		velocity += player("get_gravity").v2() * float(delta);
+		velocity += player("get_gravity").v2() * delta;
 	}
 
 	AnimatedSprite2D animated_sprite("AnimatedSprite2D");
@@ -58,7 +58,7 @@ extern "C" Variant _physics_process(double delta) {
 		velocity.y = jump_velocity;
 
 	if (direction != 0)
-		animated_sprite.set("flip_h", (direction < 0));
+		animated_sprite.set("flip_h", direction < 0);
 
 	if (player("is_on_floor")) {
 		if (direction == 0) {
@@ -86,7 +86,7 @@ extern "C" Variant _process() {
 		animated_sprite.set("modulate", 0xFFFFFFFF);
 		return Nil;
 	}
-
+	 
 	const bool has_died = animated_sprite.animation() == "died";
 	if (has_died) {
 		static constexpr float period = 3.0f;

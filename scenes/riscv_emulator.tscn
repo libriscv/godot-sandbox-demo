@@ -317,9 +317,9 @@ script = ExtResource("1_sgyv1")
 my_program = NodePath("Sandbox_ZigZig")
 
 [node name="Sandbox_ZigZig" type="Sandbox" parent="Zig program"]
-monitor_global_calls_made = 400397
-monitor_global_instance_count = 36
-monitor_accumulated_startup_time = 0.642027
+monitor_global_calls_made = 2597
+monitor_global_instance_count = 7
+monitor_accumulated_startup_time = 0.015889
 script = ExtResource("2_vhrso")
 
 [node name="C++ program" type="Node" parent="." node_paths=PackedStringArray("my_program")]
@@ -327,13 +327,11 @@ script = ExtResource("1_n3m73")
 my_program = NodePath("Sandbox_TestTest")
 
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
-use_precise_simulation = true
 monitor_heap_usage = 73128
-monitor_global_calls_made = 400397
-monitor_global_instance_count = 36
-monitor_accumulated_startup_time = 0.642027
+monitor_global_calls_made = 2597
+monitor_global_instance_count = 7
+monitor_accumulated_startup_time = 0.015889
 script = ExtResource("2_naj2m")
-use_precise_simulation = true
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 z_index = -5
@@ -381,6 +379,7 @@ unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
 use_precise_simulation = false
+restrictions = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -388,7 +387,7 @@ zoom = Vector2(4, 4)
 limit_bottom = 290
 position_smoothing_enabled = true
 
-[node name="Label" type="Label" parent="Player/Camera2D" node_paths=PackedStringArray("player_elf")]
+[node name="Label" type="Label" parent="Player/Camera2D"]
 offset_left = -44.0
 offset_top = -39.0
 offset_right = 14.0
@@ -397,7 +396,6 @@ text = "player"
 label_settings = SubResource("LabelSettings_uej4g")
 horizontal_alignment = 1
 script = ExtResource("9_le0dg")
-player_elf = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D/Label"]
 libraries = {
@@ -471,6 +469,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2(91, 273)
@@ -481,10 +480,12 @@ shape = SubResource("WorldBoundaryShape2D_2g1d0")
 [node name="Slime" parent="Enemies" instance=ExtResource("12_01vj1")]
 position = Vector2(-432, 192)
 use_precise_simulation = false
+restrictions = false
 
 [node name="Slime2" parent="Enemies" instance=ExtResource("12_01vj1")]
 position = Vector2(-48, 208)
 use_precise_simulation = false
+restrictions = false
 
 [node name="Texts" type="Node" parent="."]
 
@@ -535,12 +536,11 @@ offset_right = 53.0
 offset_bottom = 122.0
 text = "C++ written inside the Godot editor"
 
-[node name="CallLabel" type="Label" parent="Texts" node_paths=PackedStringArray("player_elf")]
+[node name="CallLabel" type="Label" parent="Texts"]
 offset_left = 344.0
 offset_top = 78.0
 offset_right = 384.0
 offset_bottom = 101.0
 script = ExtResource("9_le0dg")
-player_elf = NodePath("../../Player")
 
 [connection signal="ready" from="." to="Coins/Coin" method="reset_game"]

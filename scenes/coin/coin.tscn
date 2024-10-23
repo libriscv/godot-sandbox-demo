@@ -107,6 +107,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bh5xd")
@@ -116,6 +117,6 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_qswrl")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.312224
+frame_progress = 0.051236
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

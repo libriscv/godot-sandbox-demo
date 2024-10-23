@@ -18,14 +18,14 @@ PER_OBJECT(SlimeState);
 extern "C" Variant _physics_process(double delta) {
 	if (is_editor()) {
 		Node("AnimatedSprite2D")("play", "idle");
-		return {};
+		return Nil;
 	}
 
 	Node2D slime = get_node();
 	Node2D sprite("AnimatedSprite2D");
 	auto& state = GetSlimeState(slime);
 
-	Vector2 spd = Vector2(slime_speed, 0.0f) * float(delta) * state.direction;
+	Vector2 spd = Vector2(slime_speed, 0.0f) * delta * state.direction;
 	slime.set_position(slime.get_position() + spd);
 	// Change direction if rays collide
 	if (state.direction > 0 && Node("raycast_right")("is_colliding")) {
@@ -37,5 +37,5 @@ extern "C" Variant _physics_process(double delta) {
 		sprite.set("flip_h", false);
 		sprite("play", "idle");
 	}
-	return {};
+	return Nil;
 }

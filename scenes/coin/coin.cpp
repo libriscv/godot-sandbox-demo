@@ -10,7 +10,7 @@ static void add_coin(const Node& player) {
 	coins ++;
 	Node coinlabel = player.get_node("../Texts/CoinLabel");
 	coinlabel.set("text", "You have collected "
-		+ std::to_string(coins) + ((coins == 1) ? " coin" : " coins"));
+		+ std::to_string(coins) + ((coins == 1) ? " coinerino" : " coinerinos"));
 }
 
 extern "C" Variant _on_body_entered(Node2D node) {
@@ -38,7 +38,7 @@ extern "C" Variant _ready() {
 	if (is_editor()) {
 		get_node()("set_process_input", false);
 	}
-	return Nil;
+	return Nil; //
 }
 
 extern "C" Variant _process(double delta) {

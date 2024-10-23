@@ -1,6 +1,6 @@
 extends Node
 
-@export var my_program : Sandbox_TestTest
+@export var my_program : Sandbox
 
 func measure_callable_overhead():
 	var vmcallfunc = my_program.vmcallable("calling_function", [plain_function]);
@@ -78,7 +78,7 @@ func instantiation_benchmark():
 	var instances : Array
 	for i in 100:
 		var s = Sandbox.new()
-		s.set_program(Sandbox_TestTest)
+		s.set_program(load("res://test/test.elf"))
 		instances.push_back(s)
 	print("Global instance count: ", my_program.get("monitor_global_instance_count"))
 	print("Accumulated startup time: ", my_program.get("monitor_accumulated_startup_time"))
@@ -154,8 +154,6 @@ func _ready() -> void:
 	benchmark_method_calls()
 
 	measure_pfa_operation()
-
-	my_program.test_embedded_mir()
 
 	pass # Replace with function body.
 
