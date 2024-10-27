@@ -358,6 +358,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -365,7 +366,7 @@ zoom = Vector2(4, 4)
 limit_bottom = 290
 position_smoothing_enabled = true
 
-[node name="Label" type="Label" parent="Player/Camera2D" node_paths=PackedStringArray("player_elf")]
+[node name="Label" type="Label" parent="Player/Camera2D"]
 offset_left = -44.0
 offset_top = -39.0
 offset_right = 14.0
@@ -374,7 +375,6 @@ text = "player"
 label_settings = SubResource("LabelSettings_uej4g")
 horizontal_alignment = 1
 script = ExtResource("9_le0dg")
-player_elf = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D/Label"]
 libraries = {
@@ -427,6 +427,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="Coin2" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-648, 207)
@@ -435,6 +436,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="Coin6" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-791, 155)
@@ -443,6 +445,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="Coin5" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-200, 70)
@@ -451,6 +454,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="Coin3" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(71, 82)
@@ -459,6 +463,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="Coin4" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(91, 82)
@@ -467,6 +472,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="Coin7" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(584, 59)
@@ -475,6 +481,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="KillZone" parent="." instance=ExtResource("10_ncy1u")]
 references_max = 100
@@ -482,6 +489,7 @@ memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
 use_precise_simulation = false
+restrictions = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2(91, 273)
@@ -491,19 +499,9 @@ shape = SubResource("WorldBoundaryShape2D_2g1d0")
 
 [node name="Slime" parent="Enemies" instance=ExtResource("12_01vj1")]
 position = Vector2(-38, 208)
-references_max = 100
-memory_max = 16
-execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
 
 [node name="Slime2" parent="Enemies" instance=ExtResource("12_01vj1")]
 position = Vector2(-422, 192)
-references_max = 100
-memory_max = 16
-execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
 
 [node name="Texts" type="Node" parent="."]
 
@@ -554,12 +552,11 @@ offset_right = 53.0
 offset_bottom = 122.0
 text = "C++ written inside the Godot editor"
 
-[node name="CallLabel" type="Label" parent="Texts" node_paths=PackedStringArray("player_elf")]
+[node name="CallLabel" type="Label" parent="Texts"]
 offset_left = 344.0
 offset_top = 78.0
 offset_right = 384.0
 offset_bottom = 101.0
 script = ExtResource("9_le0dg")
-player_elf = NodePath("../../Player")
 
 [connection signal="ready" from="." to="Coins/Coin" method="reset_game"]

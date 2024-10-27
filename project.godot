@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 movie_writer/movie_file="/home/gonzo/New Game Project/testmovie.avi"
 script/docker.macos="/usr/local/bin/docker"
+script/async_compilation=false
 
 [input]
 
