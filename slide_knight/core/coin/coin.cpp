@@ -8,7 +8,7 @@ extern "C" Variant reset_game() {
 
 static void add_coin(const Node& player) {
 	coins ++;
-	Label coinlabel = player.get_node("../Texts/CoinLabel");
+	Label coinlabel = player.get_node<Label>("../Texts/CoinLabel");
 	coinlabel.set_text("You have collected "
 		+ std::to_string(coins) + ((coins == 1) ? " coin" : " coins"));
 }
@@ -24,14 +24,14 @@ extern "C" Variant _on_body_entered(CharacterBody2D body) {
 
 extern "C" Variant _ready() {
 	if (is_editor()) {
-		get_node()("set_process_input", false);
+		get_node().set_process_input(false);
 	}
 	return Nil;
 }
 
 extern "C" Variant _process(double delta) {
 	if (is_editor()) {
-		Node("AnimatedSprite2D")("play", "idle");
+		get_node<AnimatedSprite2D>("AnimatedSprite2D").play("idle");
 	}
 	return Nil;
 }
@@ -40,9 +40,9 @@ extern "C" Variant _input(InputEvent event) {
 	if (event.is_action_pressed("jump")) {
 		// Node doesn't have set_modulate, but we know this is a CanvasItem
 		// so we can still use the property on the Node using .set/.get
-		get_node().set("modulate", 0xFF6060FF);
+		get_node<Node2D>().set_modulate(0xFF6060FF);
 	} else if (event.is_action_released("jump")) {
-		get_node().set("modulate", 0xFFFFFFFF);
+		get_node<Node2D>().set_modulate(0xFFFFFFFF);
 	}
 	return Nil;
 }
