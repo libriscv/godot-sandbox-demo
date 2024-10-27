@@ -35,13 +35,13 @@ extern "C" Variant _physics_process(double delta) {
 		return Nil;
 	}
 
-	Node2D player = get_node();
-	Object input = Input::get_singleton();
-	Vector2 velocity = player.get("velocity");
+	CharacterBody2D player = get_node();
+	Input input = Input::get_singleton();
+	Vector2 velocity = player.get_velocity();
 
 	// Add the gravity.
-	if (!player("is_on_floor")) {
-		velocity += player("get_gravity").v2() * float(delta);
+	if (!player.is_on_floor()) {
+		velocity += player.get_gravity() * delta;
 	}
 	
 	AnimatedSprite2D animated_sprite("AnimatedSprite2D");
@@ -50,16 +50,16 @@ extern "C" Variant _physics_process(double delta) {
 		goto velocity_calculations;
 
 	// Get the input direction and handle the movement/deceleration.
-	direction = input("get_axis", "move_left", "move_right");
+	direction = input.get_axis("move_left", "move_right");
 
 	// Handle jump.
-	if (input("is_action_just_pressed", "jump") && player("is_on_floor"))
+	if (input.is_action_just_pressed("jump") && player.is_on_floor())
 		velocity.y = jump_velocity;
 
 	if (direction != 0)
-		animated_sprite.set("flip_h", (direction < 0));
+		animated_sprite.set_flip_h(direction < 0);
 
-	if (player("is_on_floor")) {
+	if (player.is_on_floor()) {
 		if (direction == 0) {
 			animated_sprite.play("idle");
 		} else {
@@ -74,30 +74,34 @@ velocity_calculations:
 		velocity.x = direction * player_speed;
 	else
 		velocity.x = std::fmin(velocity.x, player_speed);
-	player.set("velocity", velocity);
+	player.set_velocity(velocity);
 
-	return player("move_and_slide");
+	return player.move_and_slide();
 }
 
 static float x = 0.0f;
 static float z = 0.0f;
 
 extern "C" Variant _process() {
-	static constexpr float period = 1.0f;
-
 	AnimatedSprite2D animated_sprite("AnimatedSprite2D");
-	const bool has_died = animated_sprite.animation() == "died";
-	if (!has_died)
+	if (is_editor()) {
+		animated_sprite.set_modulate(0xFFFFFFFF);
 		return Nil;
+	}
 
-	// Rainbow color modulation
-	const int r = Math::sin(x * period) * 127 + 128;
-	const int g = Math::sin(z * period) * 127 + 128;
-	const int b = Math::sin((x + z) * period) * 127 + 128;
+	const bool has_died = animated_sprite.animation() == "died";
+	if (has_died) {
+		static constexpr float period = 3.0f;
+		static float x = 0.0f;
+		// Death color modulation
+		const int redness = Math::sin(x * period) * 127 + 128;
+		const int r = 255;
+		const int g = redness;
+		const int b = redness;
 
-	const uint32_t mod = 255 | r << 8 | g << 16 | b << 24;
-	get_node("AnimatedSprite2D").set("modulate", mod);
-	x += 0.1f;
-	z += 0.01f;
+		const uint32_t mod = 255 | b << 8 | g << 16 | r << 24;
+		animated_sprite.set_modulate(mod);
+		x += 0.1f;
+	}
 	return Nil;
 }
