@@ -92,7 +92,7 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_jcpv2")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.632947
+frame_progress = 0.158168
 
 [node name="KillZone" parent="." instance=ExtResource("2_4vnuq")]
 collision_mask = 2
