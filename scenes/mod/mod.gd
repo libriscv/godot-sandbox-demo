@@ -12,10 +12,8 @@ func _finish_decompression():
 	var buffer = thread.wait_to_finish()
 	var s : Sandbox = get_node("LuaVM")
 
-	#s.make_resumable()
 	s.load_buffer(buffer)
-	#while !s.resume(10000):
-	#	await get_tree().process_frame
+	s.profiling = true
 
 	if (s.is_binary_translated()):
 		print("LuaJit was binary translated")

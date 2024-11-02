@@ -155,6 +155,8 @@ func _ready() -> void:
 
 	measure_pfa_operation()
 
+	my_program.vmcall("test_sandbox_pass", my_program)
+
 	pass # Replace with function body.
 
 func measure_pfa_operation():

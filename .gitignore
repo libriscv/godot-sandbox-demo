@@ -18,3 +18,4 @@ mono_crash.*.json
 # C++ and Rust specific ignores
 *.o
 **/.build/
+cmake/generated_api.hpp

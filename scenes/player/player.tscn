@@ -211,11 +211,14 @@ collision_mask = 3
 script = ExtResource("1_l4exu")
 player_speed = 150.0
 player_jump_vel = -300.0
-player_name = "Slide Knight"
+player_name = "Slight Knight"
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
 use_unboxed_arguments = true
+use_precise_simulation = false
+profiling = true
+restrictions = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -229,8 +232,9 @@ animation = &"died"
 autoplay = "idle"
 
 [node name="Sandbox" type="Sandbox" parent="."]
-monitor_heap_usage = 74216
-monitor_global_calls_made = 865033
+profiling = true
+monitor_heap_usage = 73128
+monitor_global_calls_made = 1862818
 monitor_global_instance_count = 10
-monitor_accumulated_startup_time = 0.019145
+monitor_accumulated_startup_time = 0.018811
 script = ExtResource("3_pve2h")

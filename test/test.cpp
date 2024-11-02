@@ -1,24 +1,26 @@
-#include "api.hpp"
+#include <api.hpp>
+
+EMBED_BINARY(binary_data, "../scenes/mod/lua.elf.gz")
 
 int main() {
-	static bool timer_created = true;
+	static bool timer_created = true; //
 	if (!timer_created) {
 		timer_created = true;
 		const char *val1 = "123";
 		const int val2 = 456;
-		Timer::native_periodic(0.1, [=] (Object timer) -> Variant {
+		CallbackTimer::native_periodic(0.1, [=] (Timer timer) -> Variant {
 			print("Timer with values: ", val1, val2);
 			static int counter = 0;
 			if (++counter >= 4)
-				timer.as_node().queue_free();
+				timer.queue_free();
 			return {};
 		});
 	}
 
 	print(Vector3 { 1.5, 2.5, 3.5 }("floor")); //
 
-	/*Object j = ClassDB::instantiate("JSON");
-	j("parse",
+	JSON j = ClassDB::instantiate<JSON>("JSON");
+	j.parse(
 	R"({
 		"pi": 3.141,
 		"happy": true,
@@ -33,9 +35,20 @@ int main() {
 			"value": 42.99
 		}
 	})");
-	print(j.get("data"));*/
+	print(j.get_data());
+	//print(r2.get_pattern());
+	Sandbox s = ClassDB::instantiate<Sandbox>("Sandbox");
+	s.queue_free();
+	print("Hot reload");
+	print("Hot relo2d22");
 
 	halt();
+}
+
+extern "C" Variant test_sandbox_pass(Sandbox s) {
+	Sandbox s2 = s;
+	//s2 = s2.FromBuffer(PackedArray<uint8_t>((const uint8_t *)binary_data, binary_data_size));
+	return s2;
 }
 
 extern "C" Variant empty_function() {
@@ -47,7 +60,7 @@ extern "C" Variant arg1_function(int, int, int, int, int, int, int) {
 
 extern "C" Variant method_call_bench() {
 	//return Vector3 { 1.5, 2.5, 3.5 }("floor");
-	Variant(Vector3 { 1.5, 2.5, 3.5 }).void_method("floor");
+	Variant(Vector3 { 1.5, 2.5, 3.5 }).voidcall("floor");
 	return Nil;
 	//return Vector3 { 1.5, 2.5, 3.5 }.floor();
 }
@@ -151,8 +164,6 @@ extern "C" Variant pba_operation(PackedArray<float> farr) {
 	farr.store(array.get(), 100000);
 	return Nil;
 }
-
-EMBED_BINARY(binary_data, "../scenes/mod/lua.elf.gz")
 
 extern "C" Variant get_embedded_luajit() {
 	return PackedArray<uint8_t>((const uint8_t *)binary_data, binary_data_size);

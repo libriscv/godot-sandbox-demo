@@ -4,5 +4,12 @@
 
 [node name="KillZone" type="Area2D"]
 script = ExtResource("1_v34wd")
+references_max = 100
+memory_max = 16
+execution_timeout = 8000
+use_unboxed_arguments = true
+use_precise_simulation = false
+profiling = true
+restrictions = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
