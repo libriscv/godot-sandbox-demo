@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://88cmbmcw8e1j" path="res://slide_knight/core/player/player.tscn" id="6_8caog"]
 [ext_resource type="Texture2D" uid="uid://cee0asjwgfgcb" path="res://slide_knight/art/bg_santorini_layers/bg_santorini_2.png" id="6_rclri"]
 [ext_resource type="Texture2D" uid="uid://bg1iclr2emsw7" path="res://slide_knight/art/world_tileset.png" id="8_uv7qc"]
-[ext_resource type="Script" path="res://slide_knight/core/label.gd" id="9_le0dg"]
+[ext_resource type="Script" uid="uid://ckmno1tw1831w" path="res://slide_knight/core/label.gd" id="9_le0dg"]
 [ext_resource type="PackedScene" uid="uid://b3ve27fwfptk0" path="res://slide_knight/core/killzone/kill_zone.tscn" id="10_ncy1u"]
 [ext_resource type="PackedScene" uid="uid://eqb1p24hpo2f" path="res://slide_knight/core/platform/platform.tscn" id="11_qhrto"]
 [ext_resource type="PackedScene" uid="uid://bw8koyu6x3go7" path="res://slide_knight/core/slime/slime.tscn" id="12_01vj1"]
@@ -200,8 +200,8 @@ tracks/0/path = NodePath(".:label_settings:font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat64Array(0),
+"transitions": PackedFloat64Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
@@ -212,8 +212,8 @@ tracks/1/path = NodePath(".:label_settings:outline_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat64Array(0),
+"transitions": PackedFloat64Array(1),
 "update": 0,
 "values": [Color(4.42803e-06, 0.821363, 0.903446, 0.796078)]
 }
@@ -228,8 +228,8 @@ tracks/0/path = NodePath(".:label_settings:font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.9, 2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat64Array(0.9, 2),
+"transitions": PackedFloat64Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
@@ -240,16 +240,16 @@ tracks/1/path = NodePath(".:label_settings:outline_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.9, 2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat64Array(0.9, 2),
+"transitions": PackedFloat64Array(1, 1),
 "update": 0,
 "values": [Color(4.42803e-06, 0.821363, 0.903446, 0.796078), Color(0, 0.819608, 0.901961, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h4l0x"]
 _data = {
-"RESET": SubResource("Animation_ugukm"),
-"new_animation": SubResource("Animation_243nh")
+&"RESET": SubResource("Animation_ugukm"),
+&"new_animation": SubResource("Animation_243nh")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0sqwl"]
@@ -276,8 +276,8 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat64Array(0),
+"transitions": PackedFloat64Array(1),
 "update": 0,
 "values": [Vector2(417, 133)]
 }
@@ -292,16 +292,16 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat64Array(0, 1),
+"transitions": PackedFloat64Array(1, 1),
 "update": 0,
 "values": [Vector2(417, 133), Vector2(496, 133)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_glend"]
 _data = {
-"RESET": SubResource("Animation_ak1ke"),
-"new_animation": SubResource("Animation_6a08h")
+&"RESET": SubResource("Animation_ak1ke"),
+&"new_animation": SubResource("Animation_6a08h")
 }
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2g1d0"]
@@ -353,12 +353,6 @@ tile_set = SubResource("TileSet_aeu1j")
 unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
-references_max = 100
-memory_max = 16
-execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
-restrictions = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -378,7 +372,7 @@ script = ExtResource("9_le0dg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D/Label"]
 libraries = {
-"": SubResource("AnimationLibrary_h4l0x")
+&"": SubResource("AnimationLibrary_h4l0x")
 }
 autoplay = "new_animation"
 
@@ -414,7 +408,7 @@ position = Vector2(417, 133)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
 libraries = {
-"": SubResource("AnimationLibrary_glend")
+&"": SubResource("AnimationLibrary_glend")
 }
 autoplay = "new_animation"
 

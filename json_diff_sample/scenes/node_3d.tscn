@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmpfr060yghgm"]
+
+[ext_resource type="Script" uid="uid://c2xg6e1li2o3h" path="res://json_diff_sample/core/sandbox.gd" id="1_i7ehx"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Sandbox" type="Sandbox" parent="."]
+monitor_global_calls_made = 136857
+monitor_global_instance_count = 5
+monitor_accumulated_startup_time = 0.028167
+script = ExtResource("1_i7ehx")
