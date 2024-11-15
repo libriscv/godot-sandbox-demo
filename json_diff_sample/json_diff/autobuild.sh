@@ -11,7 +11,7 @@ set -e -u
 
 FPATH=".."
 PATTERN="\.cpp$"
-COMMAND="./build.sh"
+COMMAND="./compile.sh"
 
 inotifywait -q --format '%f' -m -r -e close_write $FPATH \
     | grep --line-buffered $PATTERN \
