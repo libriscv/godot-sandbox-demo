@@ -38,11 +38,5 @@ icon = ExtResource("2_xsav0")
 
 [node name="LuaVM" type="Sandbox" parent="."]
 profiling = true
-monitor_global_calls_made = 3360401
-monitor_global_instance_count = 9
-monitor_accumulated_startup_time = 0.020115
 
 [node name="CVM" type="Sandbox" parent="."]
-monitor_global_calls_made = 3360401
-monitor_global_instance_count = 9
-monitor_accumulated_startup_time = 0.020115

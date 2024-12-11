@@ -1,6 +1,7 @@
 ### Godot ###
 # Godot 4+ specific ignores
 .godot/
+*.uid
 
 # Godot-specific ignores
 .import/
@@ -17,5 +18,7 @@ mono_crash.*.json
 
 # C++ and Rust specific ignores
 *.o
+*.so
 **/.build/
-cmake/generated_api.hpp
+generated_api.hpp
+bintr_*.cpp

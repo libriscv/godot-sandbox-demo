@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bw8koyu6x3go7"]
+[gd_scene load_steps=15 format=3 uid="uid://bw8koyu6x3go7"]
 
-[ext_resource type="Script" path="res://scenes/slime-rs/slime-rs.elf" id="1_8l6js"]
+[ext_resource type="Script" uid="uid://bjwcrfqfoihur" path="res://scenes/slime-rs/slime-rs.elf" id="1_8l6js"]
 [ext_resource type="Texture2D" uid="uid://bdiefeagyvmbq" path="res://assets/sprites/slime_green.png" id="1_cov0q"]
 [ext_resource type="PackedScene" uid="uid://b3ve27fwfptk0" path="res://scenes/killzone/kill_zone.tscn" id="2_4vnuq"]
+[ext_resource type="Script" uid="uid://c6u6bnmrgjqhj" path="res://scenes/slime-rs/node.gd" id="4_iqqyr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pyavc"]
 atlas = ExtResource("1_cov0q")
@@ -81,7 +82,14 @@ script = ExtResource("1_8l6js")
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
+allocations_max = 4000
 use_unboxed_arguments = true
+use_precise_simulation = false
+profiling = true
+restrictions = false
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("4_iqqyr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -93,10 +101,7 @@ frame_progress = 0.0692644
 
 [node name="KillZone" parent="." instance=ExtResource("2_4vnuq")]
 collision_mask = 2
-references_max = 100
-memory_max = 16
-execution_timeout = 8000
-use_unboxed_arguments = true
+allocations_max = 4000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2(0, -5.5)

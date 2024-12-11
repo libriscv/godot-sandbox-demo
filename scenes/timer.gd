@@ -6,12 +6,12 @@ func resolver(file, address):
 	return "Unknown"
 
 func _on_timeout() -> void:
-	var hotspots : Array = Sandbox.get_hotspots("luajit.elf", resolver)
+	var hotspots : Array = Sandbox.get_hotspots(6, resolver)
 	print(JSON.stringify(hotspots, "    "))
 	var txt = get_node("../TextEdit") as TextEdit
 	txt.text = ""
 	
-	var stats : Dictionary = hotspots[hotspots.size()-1]
+	var stats : Dictionary = hotspots[-1]
 	for i in 4:
 		var prof : Dictionary = hotspots[i]
 		var percent = str((prof["samples"] * 100) / stats["samples_total"]) + "%"

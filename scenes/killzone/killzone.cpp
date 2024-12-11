@@ -1,6 +1,6 @@
 #include "api.hpp"
 
-extern "C" Variant _on_body_entered(CharacterBody2D body) {
+PUBLIC Variant _on_body_entered(CharacterBody2D body) {
 	Engine::get_singleton().set_time_scale(0.5);
 
 	body.set_velocity(Vector2(0.0f, -120.0f));
@@ -16,4 +16,10 @@ extern "C" Variant _on_body_entered(CharacterBody2D body) {
 		return Nil;
 	});
 	return Nil;
+}
+
+int main() {
+	ADD_API_FUNCTION(_on_body_entered, "void", "CharacterBody2D body");
+
+	halt();
 }

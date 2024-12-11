@@ -15,7 +15,7 @@ struct SlimeState {
 };
 PER_OBJECT(SlimeState);
 
-extern "C" Variant _physics_process(double delta) {
+PUBLIC Variant _physics_process(double delta) {
 	if (is_editor()) {
 		Node("AnimatedSprite2D")("play", "idle");
 		return Nil;

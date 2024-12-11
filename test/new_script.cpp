@@ -1,12 +1,7 @@
 #include "api.hpp"
 #include <stdexcept>
 
-extern "C" Variant public_function(Variant arg) {
-	print("Arguments: ", arg);
-	return "Hello from the other side";
-}
-
-extern "C" Variant measure_obj_callp(Node obj) {
+Variant measure_obj_callp(Node obj) {
 	//return obj("get_name");
 	return obj.get_name();
 }
@@ -21,7 +16,7 @@ static inline int lookup_function(std::vector<Vector3> &vertices, const Vector3&
 	return index;
 }
 
-extern "C" Variant createSkyDome(double r_inner64, double r_outer64)
+Variant createSkyDome(double r_inner64, double r_outer64)
 {
 	const float r_inner = r_inner64;
 	const float r_outer = r_outer64;

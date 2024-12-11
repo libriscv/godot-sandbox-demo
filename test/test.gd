@@ -1,6 +1,6 @@
 extends Node
 
-@export var my_program : Sandbox
+@export var my_program : Sandbox_TestTest
 
 func measure_callable_overhead():
 	var vmcallfunc = my_program.vmcallable("calling_function", [plain_function]);
@@ -88,20 +88,17 @@ func instantiation_benchmark():
 
 func _ready() -> void:
 	#my_program.assault("Variant", 10000)
-
+	my_program.memory_max = 32
 	if (my_program.is_binary_translated()):
 		print("Test.cpp was binary translated")
 	else:
-		print("Test.cpp IS NOT binary translated")
-		var bintr = my_program.emit_binary_translation(true, true)
-		var f = FileAccess.open("res://bintr_test.cpp", FileAccess.WRITE)
-		f.store_string(bintr)
-		f.close()
+		my_program.try_compile_binary_translation("res://bintr_test", "clang-19", "", true, true)
 
 	var aa : Array
 	aa.push_back("Array 123")
 	aa.push_back("Array 456")
 	my_program.function3(1, 2, aa)
+	my_program.function33(1, 2, aa)
 	var dd : Dictionary
 	dd["123"] = "Dict 123"
 	dd["456"] = "Dict 456"
@@ -156,6 +153,44 @@ func _ready() -> void:
 	measure_pfa_operation()
 
 	my_program.vmcall("test_sandbox_pass", my_program)
+
+	print(my_program.monitor_heap_usage)
+	print(my_program.monitor_heap_chunk_count)
+	print(my_program.monitor_heap_allocation_counter)
+	print(my_program.monitor_heap_deallocation_counter)
+
+	if false:
+		var asmjit = get_node("asmjit") as Sandbox_TestAsmjit
+		var callable = asmjit.assemble("""
+.section .text
+_start:
+	li s0, 2
+	li s1, 12345
+	sd s0, 0(a0)
+	sd s1, 8(a0)
+	ret
+""")
+		print(callable.call())
+
+	var luajit = get_node("luajit") as Sandbox_TestLuajit
+	luajit.execution_timeout = 0
+	luajit.add_function("test", func(name): return "Test " + str(name) + " called!")
+	luajit.add_function("add", func(a, b): return a + b)
+	luajit.run("""
+	print(test(1))
+	print(add(333, 666))
+	function fib(n, acc, prev)
+		if (n < 1) then
+			return acc
+		else
+			return fib(n - 1, prev + acc, acc)
+		end
+	end
+	print("The 500th fibonacci number is " .. fib(500, 0, 1))
+	""")
+
+	#var robust = get_node("robust") as Sandbox_TestRobustWeightTransfer
+	#robust.run_tests()
 
 	pass # Replace with function body.
 

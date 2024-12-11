@@ -19,10 +19,10 @@ func _finish_decompression():
 		print("LuaJit was binary translated")
 	else:
 		print("LuaJit IS NOT binary translated")
-		var bintr = s.emit_binary_translation()
-		var f = FileAccess.open("res://bintr_luajit.cpp", FileAccess.WRITE)
-		f.store_string(bintr)
-		f.close()
+		#var bintr = s.emit_binary_translation()
+		#var f = FileAccess.open("res://bintr_luajit.cpp", FileAccess.WRITE)
+		#f.store_string(bintr)
+		#f.close()
 
 func _ready():
 	thread = Thread.new()
@@ -31,6 +31,7 @@ func _ready():
 	var zipfile : PackedByteArray = get_node("../C++ program/Sandbox_TestTest").vmcall("get_embedded_luajit")
 
 	thread.start(_thread_function.bind(zipfile))
+	return
 
 	var s : Sandbox = get_node("CVM")
 	var cjit : ELFScript = load("res://scenes/mod/cjit.elf")

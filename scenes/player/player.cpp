@@ -26,7 +26,7 @@ SANDBOXED_PROPERTIES(3, {
 	.default_value = Variant{"Slight Knight"},
 });
 
-extern "C" Variant _physics_process(double delta) {
+PUBLIC Variant _physics_process(double delta) {
 	if (is_editor()) {
 		if (is_part_of_tree(get_node())) {
 			Dictionary d = Dictionary::Create();
@@ -80,7 +80,7 @@ velocity_calculations:
 	return player.move_and_slide();
 }
 
-extern "C" Variant _process() {
+PUBLIC Variant _process() {
 	AnimatedSprite2D animated_sprite("AnimatedSprite2D");
 	if (is_editor()) {
 		animated_sprite.set_modulate(0xFFFFFFFF);
@@ -102,4 +102,21 @@ extern "C" Variant _process() {
 		x += 0.1f;
 	}
 	return Nil;
+}
+
+int main() {
+	ADD_API_FUNCTION(_physics_process, "void", "double delta");
+	ADD_API_FUNCTION(_process, "void");
+
+	add_property("player_speed", Variant::FLOAT, player_speed,
+		[]() -> Variant { return player_speed; },
+		[](Variant value) -> Variant { return player_speed = value; });
+	add_property("player_jump_vel", Variant::FLOAT, jump_velocity,
+		[]() -> Variant { return jump_velocity; },
+		[](Variant value) -> Variant { return jump_velocity = value; });
+	add_property("player_name", Variant::STRING, player_name,
+		[]() -> Variant { return player_name; },
+		[](Variant value) -> Variant { return player_name = value.as_std_string(); });
+
+	halt();
 }

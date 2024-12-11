@@ -1,12 +1,13 @@
 mod godot;
 use godot::api::*;
 use godot::node::*;
+use godot::string::*;
 use godot::variant::*;
 
 const SPEED: f32 = 50.0;
 
- #[no_mangle]
-pub fn _physics_process(delta: f64) -> Variant {
+extern "C"
+fn _physics_process(delta: f64) -> Variant {
 	if Engine::is_editor_hint() {
 		return Variant::new_nil();
 	}
@@ -34,5 +35,16 @@ pub fn _physics_process(delta: f64) -> Variant {
 	Variant::new_nil()
 }
 
+extern "C"
+fn test(a: i32, b: i32, c: GodotString) -> Variant {
+	let sum = a + b + c.to_string().parse::<i32>().unwrap();
+	Variant::new_integer(sum.into())
+}
+
 pub fn main() {
+	let v = Variant::new_string("Hello, Rust World!");
+	println!("{}", v.to_string());
+
+	register_public_api_func1("_physics_process", _physics_process, "Variant", "f64");
+	register_public_api_func3("test", test, "int", "int a, int b, String c");
 }
