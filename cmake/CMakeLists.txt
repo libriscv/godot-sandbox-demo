@@ -16,25 +16,25 @@ FetchContent_MakeAvailable(godot-sandbox)
 
 set(PROOT ${CMAKE_SOURCE_DIR}/..)
 
-add_sandbox_program_at(coin ${PROOT}/scenes/coin
+add_sandbox_program_at(coin.elf ${PROOT}/scenes/coin
     ${PROOT}/scenes/coin/coin.cpp
 )
 
-add_sandbox_program_at(player ${PROOT}/scenes/player
+add_sandbox_program_at(player.elf ${PROOT}/scenes/player
 	${PROOT}/scenes/player/player.cpp
 )
 
-add_sandbox_program_at(killzone ${PROOT}/scenes/killzone
+add_sandbox_program_at(killzone.elf ${PROOT}/scenes/killzone
     ${PROOT}/scenes/killzone/killzone.cpp
 )
 
-add_sandbox_program_at(slime ${PROOT}/scenes/slime
+add_sandbox_program_at(slime.elf ${PROOT}/scenes/slime
     ${PROOT}/scenes/slime/slime.cpp
 )
 
 
 
-add_sandbox_program_at(test ${PROOT}/test
+add_sandbox_program_at(test.elf ${PROOT}/test
 	${PROOT}/test/test.cpp
 	${PROOT}/test/new_script.cpp
 )

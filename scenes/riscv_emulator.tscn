@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://b84pppfu6tvr1"]
+[gd_scene load_steps=40 format=4 uid="uid://b84pppfu6tvr1"]
 
 [ext_resource type="Script" uid="uid://b611e5v1ejnwm" path="res://scenes/init.gd" id="1_iiysd"]
 [ext_resource type="Script" uid="uid://dqkmmt48qgdnv" path="res://test/test.gd" id="1_n3m73"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://bpcjl24ocxxgn" path="res://assets/tiles/bg_santorini_layers/bg_santorini_1.png" id="5_xqaax"]
 [ext_resource type="PackedScene" uid="uid://88cmbmcw8e1j" path="res://scenes/player/player.tscn" id="6_8caog"]
 [ext_resource type="Texture2D" uid="uid://cee0asjwgfgcb" path="res://assets/tiles/bg_santorini_layers/bg_santorini_2.png" id="6_rclri"]
-[ext_resource type="Script" uid="uid://c0d6geiplha77" path="res://test/test.elf" id="7_gtkfw"]
 [ext_resource type="Script" uid="uid://c0d6geiplha77" path="res://test/test.elf" id="7_rrgkd"]
 [ext_resource type="Texture2D" uid="uid://bg1iclr2emsw7" path="res://assets/sprites/world_tileset.png" id="8_uv7qc"]
 [ext_resource type="Script" uid="uid://px5v2npsh82a" path="res://scenes/label.gd" id="9_le0dg"]
@@ -353,7 +352,7 @@ my_program = NodePath("Sandbox_TestTest")
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
 memory_max = 32
 execution_timeout = 0
-program = ExtResource("7_gtkfw")
+program = ExtResource("7_rrgkd")
 script = ExtResource("7_rrgkd")
 
 [node name="asmjit" type="Sandbox" parent="C++ program"]

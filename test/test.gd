@@ -79,6 +79,9 @@ func instantiation_benchmark():
 	for i in 100:
 		var s = Sandbox.new()
 		s.set_program(load("res://test/test.elf"))
+		assert(s.has_program_loaded())
+		assert(s.has_function("empty_function"))
+		s.vmcall("empty_function", self)
 		instances.push_back(s)
 	print("Global instance count: ", my_program.get("monitor_global_instance_count"))
 	print("Accumulated startup time: ", my_program.get("monitor_accumulated_startup_time"))
@@ -88,11 +91,14 @@ func instantiation_benchmark():
 
 func _ready() -> void:
 	#my_program.assault("Variant", 10000)
+	my_program.execution_timeout = 0
 	my_program.memory_max = 32
 	if (my_program.is_binary_translated()):
 		print("Test.cpp was binary translated")
-	else:
-		my_program.try_compile_binary_translation("res://bintr_test", "clang-19", "", true, true)
+	#else:
+	#	my_program.try_compile_binary_translation("res://bintr_test", "clang-19", "", true, true)
+
+	#instantiation_benchmark()
 
 	var aa : Array
 	aa.push_back("Array 123")

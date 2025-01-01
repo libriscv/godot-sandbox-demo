@@ -6,7 +6,7 @@ PUBLIC Variant reset_game() {
 	return Nil;
 }
 
-static void add_coin(const Node& player) {
+static inline void add_coin(const Node& player) {
 	coins ++;
 	// In our demo project we can access the coin label from the player
 	// using a node path: Player -> get_parent() -> Texts -> CoinLabel

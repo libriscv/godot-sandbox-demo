@@ -1,7 +1,7 @@
 extends Node
 
 func _init() -> void:
-	Sandbox.load_binary_translation("res://bintr_test.so")
+	#Sandbox.load_binary_translation("res://bintr_test.so")
 	var api = Sandbox.generate_api()
 	var fa = FileAccess.open("generated_api.hpp", FileAccess.WRITE)
 	fa.store_string(api)
@@ -9,7 +9,7 @@ func _init() -> void:
 
 func _ready():
 	if !FileAccess.file_exists("res://hello_world.elf"):
-		var buffer = Sandbox.download_program("hello_world")
+		var buffer = Sandbox.download_program("godot-sandbox-programs/hello_world")
 		var fa = FileAccess.open("res://hello_world.elf", FileAccess.WRITE)
 		fa.store_buffer(buffer)
 		fa.close()
@@ -24,7 +24,7 @@ func _ready():
 	print(n.meaning_of_life)
 
 	if !FileAccess.file_exists("res://luajit.elf"):
-		var buffer = Sandbox.download_program("luajit")
+		var buffer = Sandbox.download_program("godot-sandbox-programs/luajit")
 		var fa = FileAccess.open("res://luajit.elf", FileAccess.WRITE)
 		fa.store_buffer(buffer)
 		fa.close()

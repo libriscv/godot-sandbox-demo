@@ -6,26 +6,6 @@ static float player_speed = 150.0f;
 static float direction = 0.0f;
 static std::string player_name = "Slight Knight";
 
-SANDBOXED_PROPERTIES(3, {
-	.name = "player_speed",
-	.type = Variant::FLOAT,
-	.getter = []() -> Variant { return player_speed; },
-	.setter = [](Variant value) -> Variant { return player_speed = value; },
-	.default_value = Variant{player_speed},
-}, {
-	.name = "player_jump_vel",
-	.type = Variant::FLOAT,
-	.getter = []() -> Variant { return jump_velocity; },
-	.setter = [](Variant value) -> Variant { return jump_velocity = value; },
-	.default_value = Variant{jump_velocity},
-}, {
-	.name = "player_name",
-	.type = Variant::STRING,
-	.getter = []() -> Variant { return player_name; },
-	.setter = [](Variant value) -> Variant { return player_name = value.as_std_string(); },
-	.default_value = Variant{"Slight Knight"},
-});
-
 PUBLIC Variant _physics_process(double delta) {
 	if (is_editor()) {
 		if (is_part_of_tree(get_node())) {

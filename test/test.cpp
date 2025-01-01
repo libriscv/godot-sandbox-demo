@@ -1,6 +1,13 @@
 #include <api.hpp>
 
 EMBED_BINARY(binary_data, "../../scenes/mod/lua.elf.gz")
+__attribute__((noreturn))
+static inline void vreturn(const Variant &x) {
+	register const Variant *a0 asm("a0") = &x;
+
+	asm(".insn i SYSTEM, 0, x0, x0, 0x7ff" : : "r"(a0), "m"(*a0));
+	__builtin_unreachable();
+}
 
 static Variant test_sandbox_pass(Sandbox s) {
 	Sandbox s2 = s;
@@ -10,6 +17,7 @@ static Variant test_sandbox_pass(Sandbox s) {
 
 static Variant empty_function() {
 	return {};
+	//vreturn({});
 }
 static Variant arg1_function(int, int, int, int, int, int, int) {
 	return {};

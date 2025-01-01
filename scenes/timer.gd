@@ -6,7 +6,9 @@ func resolver(file, address):
 	return "Unknown"
 
 func _on_timeout() -> void:
-	var hotspots : Array = Sandbox.get_hotspots(6, resolver)
+	var hotspots : Array = Sandbox.get_hotspots(8, resolver)
+	if hotspots.size() < 5:
+		return
 	print(JSON.stringify(hotspots, "    "))
 	var txt = get_node("../TextEdit") as TextEdit
 	txt.text = ""
@@ -18,5 +20,3 @@ func _on_timeout() -> void:
 		var path = String(prof["file"]).split("/")
 		var elf = path[path.size()-1]
 		txt.text += "[" + percent + "] " + prof["function"] + " (" + elf + ")\n"
-	
-	return
