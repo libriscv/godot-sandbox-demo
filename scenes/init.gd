@@ -1,7 +1,7 @@
 extends Node
 
 func _init() -> void:
-	#Sandbox.load_binary_translation("res://bintr_test.so")
+	Sandbox.load_binary_translation("res://bintr_test.so")
 	var api = Sandbox.generate_api()
 	var fa = FileAccess.open("generated_api.hpp", FileAccess.WRITE)
 	fa.store_string(api)

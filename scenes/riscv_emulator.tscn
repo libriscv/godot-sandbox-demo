@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://b84pppfu6tvr1"]
+[gd_scene load_steps=43 format=4 uid="uid://b84pppfu6tvr1"]
 
 [ext_resource type="Script" uid="uid://b611e5v1ejnwm" path="res://scenes/init.gd" id="1_iiysd"]
 [ext_resource type="Script" uid="uid://dqkmmt48qgdnv" path="res://test/test.gd" id="1_n3m73"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bpcjl24ocxxgn" path="res://assets/tiles/bg_santorini_layers/bg_santorini_1.png" id="5_xqaax"]
 [ext_resource type="PackedScene" uid="uid://88cmbmcw8e1j" path="res://scenes/player/player.tscn" id="6_8caog"]
 [ext_resource type="Texture2D" uid="uid://cee0asjwgfgcb" path="res://assets/tiles/bg_santorini_layers/bg_santorini_2.png" id="6_rclri"]
-[ext_resource type="Script" uid="uid://c0d6geiplha77" path="res://test/test.elf" id="7_rrgkd"]
+[ext_resource type="Script" uid="uid://c0d6geiplha77" path="res://test/test.elf" id="7_gtkfw"]
 [ext_resource type="Texture2D" uid="uid://bg1iclr2emsw7" path="res://assets/sprites/world_tileset.png" id="8_uv7qc"]
 [ext_resource type="Script" uid="uid://px5v2npsh82a" path="res://scenes/label.gd" id="9_le0dg"]
 [ext_resource type="Script" uid="uid://ddwvrvdwo58qn" path="res://test/asmjit.elf" id="9_rrgkd"]
@@ -19,14 +19,17 @@
 [ext_resource type="PackedScene" uid="uid://bw8koyu6x3go7" path="res://scenes/slime.tscn" id="12_01vj1"]
 [ext_resource type="Script" uid="uid://bdku6fvwyyg7s" path="res://test/robust_weight_transfer.elf" id="13_afljc"]
 [ext_resource type="Texture2D" uid="uid://bonu1483yqpak" path="res://assets/Screenshot from 2024-08-16 09-04-37.png" id="13_gd6ow"]
-[ext_resource type="Script" uid="uid://b2m7tcpdew78y" path="res://scenes/player/player.elf" id="14_7pcks"]
+[ext_resource type="Script" uid="uid://d3q02i0bc4dep" path="res://scenes/player/player.cpp" id="14_nx7uf"]
 [ext_resource type="Texture2D" uid="uid://dwyfr30v0d431" path="res://assets/Screenshot from 2024-08-16 09-06-33.png" id="14_pqt4s"]
+[ext_resource type="Script" uid="uid://b2m7tcpdew78y" path="res://scenes/player/player.elf" id="15_rrgkd"]
 [ext_resource type="Texture2D" uid="uid://dpaltiur0p1mm" path="res://assets/Screenshot from 2024-08-15 16-01-33.png" id="15_u1crt"]
 [ext_resource type="Texture2D" uid="uid://bed6eys5bffjy" path="res://assets/Screenshot from 2024-08-16 09-07-43.png" id="16_witcx"]
 [ext_resource type="Texture2D" uid="uid://bqc16h6168e53" path="res://assets/Screenshot from 2024-08-23 06-59-55.png" id="18_h18om"]
 [ext_resource type="Script" uid="uid://ca6fxo2nkyh31" path="res://scenes/coin/coin.elf" id="18_o7y2v"]
+[ext_resource type="Script" uid="uid://dfgioo2q5id68" path="res://scenes/coin/coin.cpp" id="19_gtkfw"]
 [ext_resource type="Script" uid="uid://bgn0ajn8dl2bn" path="res://scenes/killzone/killzone.elf" id="20_nx7uf"]
 [ext_resource type="Script" uid="uid://bjwcrfqfoihur" path="res://scenes/slime-rs/slime-rs.elf" id="20_vrjtp"]
+[ext_resource type="Script" uid="uid://cox7nt3fa5ft1" path="res://scenes/killzone/killzone.cpp" id="22_afljc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t1ylm"]
 texture = ExtResource("8_uv7qc")
@@ -352,8 +355,8 @@ my_program = NodePath("Sandbox_TestTest")
 [node name="Sandbox_TestTest" type="Sandbox" parent="C++ program"]
 memory_max = 32
 execution_timeout = 0
-program = ExtResource("7_rrgkd")
-script = ExtResource("7_rrgkd")
+program = ExtResource("7_gtkfw")
+script = ExtResource("7_gtkfw")
 
 [node name="asmjit" type="Sandbox" parent="C++ program"]
 execution_timeout = 0
@@ -368,7 +371,7 @@ script = ExtResource("11_gtkfw")
 memory_max = 24
 program = ExtResource("13_afljc")
 script = ExtResource("13_afljc")
-metadata/_custom_type_script = ExtResource("13_afljc")
+metadata/_custom_type_script = "uid://bdku6fvwyyg7s"
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 z_index = -5
@@ -415,8 +418,12 @@ tile_set = SubResource("TileSet_aeu1j")
 unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
+script = ExtResource("14_nx7uf")
+execution_timeout = 0
 allocations_max = 4000
-program = ExtResource("14_7pcks")
+profiling = false
+program = ExtResource("15_rrgkd")
+associated_script = ExtResource("15_rrgkd")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -480,43 +487,59 @@ autoplay = "new_animation"
 
 [node name="Coin" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-72, 59)
+script = ExtResource("19_gtkfw")
 allocations_max = 4000
 program = ExtResource("18_o7y2v")
+associated_script = ExtResource("18_o7y2v")
 
 [node name="Coin2" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-648, 207)
+script = ExtResource("19_gtkfw")
 allocations_max = 4000
 program = ExtResource("18_o7y2v")
+associated_script = ExtResource("18_o7y2v")
 
 [node name="Coin6" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-791, 155)
+script = ExtResource("19_gtkfw")
 allocations_max = 4000
 program = ExtResource("18_o7y2v")
+associated_script = ExtResource("18_o7y2v")
 
 [node name="Coin5" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-200, 70)
+script = ExtResource("19_gtkfw")
 allocations_max = 4000
 program = ExtResource("18_o7y2v")
+associated_script = ExtResource("18_o7y2v")
 
 [node name="Coin3" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(71, 82)
+script = ExtResource("19_gtkfw")
 allocations_max = 4000
 program = ExtResource("18_o7y2v")
+associated_script = ExtResource("18_o7y2v")
 
 [node name="Coin4" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(91, 82)
+script = ExtResource("19_gtkfw")
 allocations_max = 4000
 program = ExtResource("18_o7y2v")
+associated_script = ExtResource("18_o7y2v")
 
 [node name="Coin7" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(152, 184)
+script = ExtResource("19_gtkfw")
 allocations_max = 4000
 program = ExtResource("18_o7y2v")
+associated_script = ExtResource("18_o7y2v")
 metadata/secret = true
 
 [node name="KillZone" parent="." instance=ExtResource("10_ncy1u")]
+script = ExtResource("22_afljc")
 allocations_max = 4000
 program = ExtResource("20_nx7uf")
+associated_script = ExtResource("20_nx7uf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2(91, 273)

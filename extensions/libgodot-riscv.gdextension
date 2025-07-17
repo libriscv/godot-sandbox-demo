@@ -1,7 +1,7 @@
 [configuration]
 
 entry_symbol = "riscv_library_init"
-compatibility_minimum = "4.1"
+compatibility_minimum = "4.3"
 
 [icons]
 
@@ -10,8 +10,8 @@ compatibility_minimum = "4.1"
 
 macos.debug = "bin/libgodot-riscv.macos.debug.framework"
 macos.release = "bin/libgodot-riscv.macos.release.framework"
-windows.debug.x86_64 = "bin/libgodot-riscv.windows.debug.x86_64.dll"
-windows.release.x86_64 = "bin/libgodot-riscv.windows.release.x86_64.dll"
+windows.debug.x86_64 = "bin/libgodot_riscv.windows.template_release.x86_64.dll"
+windows.release.x86_64 = "bin/libgodot_riscv.windows.template_release.x86_64.dll"
 linux.debug.x86_64 = "bin/libgodot-riscv.linux.debug.x86_64.so"
 linux.release.x86_64 = "bin/libgodot-riscv.linux.release.x86_64.so"
 web.debug.wasm32 = "bin/libgodot_riscv.web.template_debug.wasm32.wasm"

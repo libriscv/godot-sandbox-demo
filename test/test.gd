@@ -93,10 +93,12 @@ func _ready() -> void:
 	#my_program.assault("Variant", 10000)
 	my_program.execution_timeout = 0
 	my_program.memory_max = 32
-	if (my_program.is_binary_translated()):
-		print("Test.cpp was binary translated")
-	#else:
-	#	my_program.try_compile_binary_translation("res://bintr_test", "clang-19", "", true, true)
+	if (my_program.is_binary_translated() and !my_program.is_jit()):
+		print("Test.cpp was fully binary translated")
+	else:
+		print("Producing bintr_test.so for test.cpp as it was not fully binary translated")
+		if !my_program.try_compile_binary_translation("res://bintr_test", "clang-20", "", true, true):
+			print("ERROR: Failed to produce bintr_test.so")
 
 	#instantiation_benchmark()
 

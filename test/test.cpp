@@ -103,8 +103,8 @@ static Variant pba_operation(PackedArray<float> farr) {
 	return Nil;
 }
 
-static Variant get_embedded_luajit() {
-	return PackedArray<uint8_t>((const uint8_t *)binary_data, binary_data_size);
+extern "C" __attribute__((used, retain)) Variant get_embedded_luajit() {
+	return PackedByteArray((const uint8_t *)binary_data, binary_data_size);
 }
 
 int main() {
