@@ -2,14 +2,6 @@
 
 static float slime_speed = 50.0f;
 
-SANDBOXED_PROPERTIES(1, {
-	.name = "slime_speed",
-	.type = Variant::FLOAT,
-	.getter = []() -> Variant { return slime_speed; },
-	.setter = [](Variant value) -> Variant { return slime_speed = value; },
-	.default_value = Variant{slime_speed},
-});
-
 struct SlimeState {
 	int direction = 1;
 };
@@ -41,4 +33,10 @@ extern "C" Variant _physics_process(double delta) {
 		sprite.play("idle");
 	}
 	return Nil;
+}
+
+int main() {
+	ADD_PROPERTY(slime_speed, Variant::FLOAT);
+
+	ADD_API_FUNCTION(_physics_process, "void", "double delta");
 }
