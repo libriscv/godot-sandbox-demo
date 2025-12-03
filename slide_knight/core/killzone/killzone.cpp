@@ -1,6 +1,6 @@
 #include "api.hpp"
 
-extern "C" Variant _on_body_entered(CharacterBody2D body) {
+static Variant _on_body_entered(CharacterBody2D body) {
 	Engine::get_singleton().set_time_scale(0.5);
 
 	body.set_velocity(Vector2(0.0f, -120.0f));
@@ -8,7 +8,7 @@ extern "C" Variant _on_body_entered(CharacterBody2D body) {
 	print("Playing dead");
 	body.get_node<AnimatedSprite2D>("AnimatedSprite2D").play("died");
 
-	CallbackTimer::native_oneshot(1.0f, [] (Timer timer) -> Variant {
+	CallbackTimer::oneshot(1.0f, [] (Timer timer) -> Variant {
 		timer.queue_free();
 		Engine::get_singleton().set_time_scale(1.0);
 
@@ -16,4 +16,8 @@ extern "C" Variant _on_body_entered(CharacterBody2D body) {
 		return Nil;
 	});
 	return Nil;
+}
+
+int main() {
+	ADD_API_FUNCTION(_on_body_entered, "void", "CharacterBody2D body");
 }

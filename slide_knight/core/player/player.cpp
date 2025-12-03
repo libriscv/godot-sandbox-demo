@@ -5,27 +5,7 @@ static float player_speed = 150.0f;
 static float direction = 0.0f;
 static std::string player_name = "Slight Knight";
 
-SANDBOXED_PROPERTIES(3, {
-	.name = "player_speed",
-	.type = Variant::FLOAT,
-	.getter = []() -> Variant { return player_speed; },
-	.setter = [](Variant value) -> Variant { return player_speed = value; },
-	.default_value = player_speed,
-}, {
-	.name = "player_jump_vel",
-	.type = Variant::FLOAT,
-	.getter = []() -> Variant { return jump_velocity; },
-	.setter = [](Variant value) -> Variant { return jump_velocity = value; },
-	.default_value = jump_velocity,
-}, {
-	.name = "player_name",
-	.type = Variant::STRING,
-	.getter = []() -> Variant { return player_name; },
-	.setter = [](Variant value) -> Variant { return player_name = value.as_std_string(); },
-	.default_value = "Slight Knight",
-});
-
-extern "C" Variant _physics_process(double delta) {
+static Variant _physics_process(double delta) {
 	if (is_editor()) {
 		if (is_part_of_tree(get_node())) {
 			Dictionary d = Dictionary::Create();
@@ -43,7 +23,7 @@ extern "C" Variant _physics_process(double delta) {
 	if (!player.is_on_floor()) {
 		velocity += player.get_gravity() * delta;
 	}
-	
+
 	AnimatedSprite2D animated_sprite("AnimatedSprite2D");
 	const bool has_died = animated_sprite.animation() == "died";
 	if (has_died)
@@ -82,7 +62,7 @@ velocity_calculations:
 static float x = 0.0f;
 static float z = 0.0f;
 
-extern "C" Variant _process() {
+static Variant _process(double delta) {
 	AnimatedSprite2D animated_sprite("AnimatedSprite2D");
 	if (is_editor()) {
 		animated_sprite.set_modulate(0xFFFFFFFF);
@@ -104,4 +84,13 @@ extern "C" Variant _process() {
 		x += 0.1f;
 	}
 	return Nil;
+}
+
+int main() {
+	ADD_PROPERTY(player_speed, Variant::FLOAT);
+	ADD_PROPERTY(jump_velocity, Variant::FLOAT);
+	ADD_PROPERTY(player_name, Variant::STRING);
+
+	ADD_API_FUNCTION(_physics_process, "void", "double delta");
+	ADD_API_FUNCTION(_process, "void", "double delta");
 }

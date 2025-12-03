@@ -1,14 +1,18 @@
-[gd_scene load_steps=27 format=4 uid="uid://b84pppfu6tvr1"]
+[gd_scene load_steps=31 format=4 uid="uid://b84pppfu6tvr1"]
 
 [ext_resource type="PackedScene" uid="uid://xeqdf1ewjhxu" path="res://slide_knight/core/coin/coin.tscn" id="3_7jmnu"]
+[ext_resource type="Script" uid="uid://dyt8rd44pjnls" path="res://slide_knight/core/player/player.elf" id="5_dtr5d"]
 [ext_resource type="Texture2D" uid="uid://bpcjl24ocxxgn" path="res://slide_knight/art/bg_santorini_layers/bg_santorini_1.png" id="5_xqaax"]
 [ext_resource type="PackedScene" uid="uid://88cmbmcw8e1j" path="res://slide_knight/core/player/player.tscn" id="6_8caog"]
 [ext_resource type="Texture2D" uid="uid://cee0asjwgfgcb" path="res://slide_knight/art/bg_santorini_layers/bg_santorini_2.png" id="6_rclri"]
 [ext_resource type="Texture2D" uid="uid://bg1iclr2emsw7" path="res://slide_knight/art/world_tileset.png" id="8_uv7qc"]
 [ext_resource type="Script" uid="uid://ckmno1tw1831w" path="res://slide_knight/core/label.gd" id="9_le0dg"]
+[ext_resource type="Script" uid="uid://itoc8ken2w1t" path="res://slide_knight/core/coin/coin.elf" id="9_nuwnd"]
 [ext_resource type="PackedScene" uid="uid://b3ve27fwfptk0" path="res://slide_knight/core/killzone/kill_zone.tscn" id="10_ncy1u"]
+[ext_resource type="Script" uid="uid://nv651qicyjn6" path="res://slide_knight/core/killzone/killzone.elf" id="11_avpa6"]
 [ext_resource type="PackedScene" uid="uid://eqb1p24hpo2f" path="res://slide_knight/core/platform/platform.tscn" id="11_qhrto"]
 [ext_resource type="PackedScene" uid="uid://bw8koyu6x3go7" path="res://slide_knight/core/slime/slime.tscn" id="12_01vj1"]
+[ext_resource type="Script" uid="uid://0khn88o6mxx4" path="res://slide_knight/core/slime/slime.elf" id="13_2wblg"]
 [ext_resource type="Texture2D" uid="uid://bonu1483yqpak" path="res://slide_knight/art/screenshots/Screenshot from 2024-08-16 09-04-37.png" id="13_gd6ow"]
 [ext_resource type="Texture2D" uid="uid://dwyfr30v0d431" path="res://slide_knight/art/screenshots/Screenshot from 2024-08-16 09-06-33.png" id="14_pqt4s"]
 [ext_resource type="Texture2D" uid="uid://dpaltiur0p1mm" path="res://slide_knight/art/screenshots/Screenshot from 2024-08-15 16-01-33.png" id="15_u1crt"]
@@ -200,8 +204,8 @@ tracks/0/path = NodePath(".:label_settings:font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat64Array(0),
-"transitions": PackedFloat64Array(1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
@@ -212,8 +216,8 @@ tracks/1/path = NodePath(".:label_settings:outline_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat64Array(0),
-"transitions": PackedFloat64Array(1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(4.42803e-06, 0.821363, 0.903446, 0.796078)]
 }
@@ -228,8 +232,8 @@ tracks/0/path = NodePath(".:label_settings:font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat64Array(0.9, 2),
-"transitions": PackedFloat64Array(1, 1),
+"times": PackedFloat32Array(0.9, 2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
@@ -240,8 +244,8 @@ tracks/1/path = NodePath(".:label_settings:outline_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat64Array(0.9, 2),
-"transitions": PackedFloat64Array(1, 1),
+"times": PackedFloat32Array(0.9, 2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(4.42803e-06, 0.821363, 0.903446, 0.796078), Color(0, 0.819608, 0.901961, 0)]
 }
@@ -276,8 +280,8 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat64Array(0),
-"transitions": PackedFloat64Array(1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(417, 133)]
 }
@@ -292,8 +296,8 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat64Array(0, 1),
-"transitions": PackedFloat64Array(1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(417, 133), Vector2(496, 133)]
 }
@@ -353,6 +357,12 @@ tile_set = SubResource("TileSet_aeu1j")
 unique_name_in_owner = true
 position = Vector2(93, 187)
 collision_layer = 3
+jump_velocity = -300.0
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
+program = ExtResource("5_dtr5d")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(14, 3)
@@ -419,71 +429,95 @@ position = Vector2(-72, 59)
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
 restrictions = false
+program = ExtResource("9_nuwnd")
 
 [node name="Coin2" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-648, 207)
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
 restrictions = false
+program = ExtResource("9_nuwnd")
 
 [node name="Coin6" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-791, 155)
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
 restrictions = false
+program = ExtResource("9_nuwnd")
 
 [node name="Coin5" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(-200, 70)
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
 restrictions = false
+program = ExtResource("9_nuwnd")
 
 [node name="Coin3" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(71, 82)
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
 restrictions = false
+program = ExtResource("9_nuwnd")
 
 [node name="Coin4" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(91, 82)
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
 restrictions = false
+program = ExtResource("9_nuwnd")
 
 [node name="Coin7" parent="Coins" instance=ExtResource("3_7jmnu")]
 position = Vector2(584, 59)
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
 restrictions = false
+program = ExtResource("9_nuwnd")
 
 [node name="KillZone" parent="." instance=ExtResource("10_ncy1u")]
 references_max = 100
 memory_max = 16
 execution_timeout = 8000
-use_unboxed_arguments = true
-use_precise_simulation = false
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
 restrictions = false
+program = ExtResource("11_avpa6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 position = Vector2(91, 273)
@@ -493,9 +527,19 @@ shape = SubResource("WorldBoundaryShape2D_2g1d0")
 
 [node name="Slime" parent="Enemies" instance=ExtResource("12_01vj1")]
 position = Vector2(-38, 208)
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
+program = ExtResource("13_2wblg")
 
 [node name="Slime2" parent="Enemies" instance=ExtResource("12_01vj1")]
 position = Vector2(-422, 192)
+allocations_max = 4000
+unboxed_arguments = true
+precise_simulation = false
+profiling = false
+program = ExtResource("13_2wblg")
 
 [node name="Texts" type="Node" parent="."]
 
